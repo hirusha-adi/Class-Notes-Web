@@ -1,5 +1,6 @@
 // main
 export { Home } from "./Home/Home";
+export { Notes } from "./Notes/Notes";
 
 // Auth
 export { Login } from "./Auth/Login";

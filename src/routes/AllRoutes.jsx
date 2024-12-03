@@ -4,6 +4,7 @@ import { isUserLoggedIn, isTeacher } from "../lib/backend";
 import {
   // Main
   Home,
+  Notes,
 
   // Auth
   Login,
@@ -23,8 +24,8 @@ const AllRoutes = () => {
       <Routes>
         {/* Main (for General Public) */}
         <Route path="/" element={<Home />} />
-        <Route path="/theory" element={<Home />} />
-        <Route path="/revision" element={<Home />} />
+        <Route path="/theory" element={<Notes noteType="theory" />} />
+        <Route path="/revision" element={<Notes noteType="revision" />} />
 
         {/* Auth */}
         {/* ------------------------- */}
