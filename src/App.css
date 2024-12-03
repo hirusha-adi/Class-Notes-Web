@@ -2,3 +2,12 @@
 .btn.active {
   @apply bg-gray-300;
 }
+
+/* for Sweet Alert 2 */
+.custom-swal-popup {
+  @apply rounded-2xl !important;
+}
+
+.custom-swal-cancel-button {
+  @apply text-white btn btn-error !important;
+}

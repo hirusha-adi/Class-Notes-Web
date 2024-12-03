@@ -4,6 +4,11 @@ const url = "http://127.0.0.1:8090";
 
 export const pb = new PocketBase(url);
 
+// in development mode
+// NOTE, CRITICAL
+// uncomment on production
+pb.autoCancellation(false);
+
 export const isUserLoggedIn = pb.authStore.isValid;
 export const user = pb.authStore;
 export const isTeacher = user.record?.isTeacher;
