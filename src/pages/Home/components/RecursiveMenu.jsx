@@ -1,4 +1,4 @@
-const RecursiveMenu = ({ menu, onItemClick, selectedResource }) => {
+const RecursiveMenu = ({ menu, onItemClick }) => {
   return (
     <ul>
       {menu.map((item, index) => (
@@ -7,23 +7,11 @@ const RecursiveMenu = ({ menu, onItemClick, selectedResource }) => {
             <details>
               <summary>{item.title}</summary>
               {item.children && (
-                <RecursiveMenu
-                  menu={item.children}
-                  onItemClick={onItemClick}
-                  selectedResource={selectedResource}
-                />
+                <RecursiveMenu menu={item.children} onItemClick={onItemClick} />
               )}
             </details>
           ) : (
-            <a
-              onClick={() => onItemClick(item.resource_name)}
-              className={
-                item.resource_name === selectedResource ? "active" : ""
-              }
-              href={`?note=${item.resource_name}`}
-            >
-              {item.title}
-            </a>
+            <a onClick={() => onItemClick(item.resource_name)}>{item.title}</a>
           )}
         </li>
       ))}
