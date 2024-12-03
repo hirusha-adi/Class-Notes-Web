@@ -7,10 +7,10 @@ const Home = () => {
     document.title = `Class Notes`;
   });
 
-  const [selectedCommand, setSelectedCommand] = useState("move");
+  const [selectedResource, setSelectedResource] = useState("move");
 
   const handleItemClick = (resourceName) => {
-    setSelectedCommand(resourceName);
+    setSelectedResource(resourceName);
     console.log("Selected Resource:", resourceName);
   };
 
@@ -50,7 +50,7 @@ const Home = () => {
             </>
           )} */}
           <div className="prose min-w-full max-w-full w-full">
-            {selectedCommand && <p>Selected Command: {selectedCommand}</p>}
+            {selectedResource && <p>Selected Resource: {selectedResource}</p>}
           </div>
         </div>
       </div>
