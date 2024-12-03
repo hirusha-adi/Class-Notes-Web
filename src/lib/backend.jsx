@@ -6,11 +6,15 @@ export const pb = new PocketBase(url);
 
 export const isUserLoggedIn = pb.authStore.isValid;
 export const user = pb.authStore;
+export const isTeacher = user.record?.isTeacher;
 
 export async function login(username, password) {
-    await pb.collection("class_notes_users").authWithPassword(username, password);
+  await pb.collection("class_notes_users").authWithPassword(username, password);
+  if (isTeacher) {
     window.location.reload();
-
+  } else {
+    window.location.href = "/";
+  }
 }
 
 export async function logout() {

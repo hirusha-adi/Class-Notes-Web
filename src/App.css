@@ -1,1 +1,4 @@
 /* Custom Styles Here */
+.btn.active {
+  @apply bg-gray-300;
+}
