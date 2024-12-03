@@ -1,13 +1,31 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../../assets/sidebars/CIE-OL-CS-TH.json";
 import { getNote } from "../../../lib/backend";
 
 const NotesView = ({ fileName, postFix }) => {
-  const [selectedResource, setSelectedResource] = useState("move");
+  const [selectedResource, setSelectedResource] = useState("intro");
+  const [pageContent, setPageContent] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const noteUrl = `${fileName}-${postFix}.md`;
+
+  useEffect(() => {
+    const fetchNote = async () => {
+      try {
+        setIsLoading(true);
+        const note = await getNote(noteUrl);
+      } catch {
+        let errorMessage;
+        setError(errorMessage);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchNote();
+  }, [selectedResource]);
 
   getNote("cie_ol_cs_th_1_hardware_devices_1_introduction");
 
