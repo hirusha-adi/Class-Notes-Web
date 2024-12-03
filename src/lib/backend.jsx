@@ -82,6 +82,11 @@ class_notes_notes (base)
     custom
       resourceName (text)
       url (text)
+  rules
+    List/Search rule
+      @request.auth.id = @collection.class_notes_accesss.userId
+    View rule
+      @request.auth.id != ""
 
 class_notes_accesss (base)
   feilds
@@ -93,8 +98,6 @@ class_notes_accesss (base)
       userId (text)
       resourceName (text)
   rules
-    List/Search rule
-      @request.auth.id = @collection.class_notes_accesss.userId
-    View rule
-      @request.auth.id != ""
+    All
+      @request.auth.id != "" && @request.auth.isTeacher = true
 */
