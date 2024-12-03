@@ -23,6 +23,8 @@ const AllRoutes = () => {
       <Routes>
         {/* Main (for General Public) */}
         <Route path="/" element={<Home />} />
+        <Route path="/theory" element={<Home />} />
+        <Route path="/revision" element={<Home />} />
 
         {/* Auth */}
         {/* ------------------------- */}
@@ -37,6 +39,16 @@ const AllRoutes = () => {
         {/* Admin Pages */}
         {/* ------------------------- */}
         {/* Statistics (default page after login) */}
+        <Route
+          path="/admin"
+          element={
+            isUserLoggedIn && isTeacher ? (
+              <Navigate to={"/admin/statistics"} />
+            ) : (
+              <Navigate to="/404" />
+            )
+          }
+        />
         <Route
           path="/admin/statistics"
           element={

@@ -24,3 +24,9 @@ export async function logout() {
   window.location.href = "/login";
   // window.location.reload();
 }
+
+export async function getSubject(subject) {
+  return await pb
+    .collection("class_notes_subjects")
+    .getFirstListItem(`subject="${subject}"`);
+}

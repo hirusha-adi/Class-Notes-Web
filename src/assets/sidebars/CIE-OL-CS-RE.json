@@ -1,0 +1,83 @@
+{
+  "title": "Theory Notes",
+  "menu": [
+    {
+      "title": "Paper 1",
+      "type": "dir",
+      "children": [
+        {
+          "title": "1. Hardware Devices",
+          "type": "dir",
+          "children": [
+            {
+              "title": "Introduction",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_1_hardware_devices_1_introduction"
+            },
+            {
+              "title": "Input Devices",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_1_hardware_devices_2_input_devices"
+            },
+            {
+              "title": "Sensors",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_1_hardware_devices_3_sensors"
+            },
+            {
+              "title": "Output Devices",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_1_hardware_devices_4_output_devices"
+            }
+          ]
+        },
+        {
+          "title": "2. Software",
+          "type": "dir",
+          "children": [
+            {
+              "title": "Software Types",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_1_software_types"
+            },
+            {
+              "title": "Utility Software",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_2_utility_software"
+            },
+            {
+              "title": "Operating Systems",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_3_operating_systems"
+            },
+            {
+              "title": "Computer Startup Process",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_4_computer_startup_process"
+            },
+            {
+              "title": "Interrupts",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_5_interrupts"
+            },
+            {
+              "title": "Programming Languages",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_6_programming_languages"
+            },
+            {
+              "title": "Translators",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_7_translators"
+            },
+            {
+              "title": "IDE",
+              "type": "doc",
+              "resource_name": "cie_ol_cs_th_2_software_8_ide"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
