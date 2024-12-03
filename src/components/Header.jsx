@@ -1,4 +1,4 @@
-import { List, BoxArrowRight, Book, Key } from "react-bootstrap-icons";
+import { List, Book, LightningCharge } from "react-bootstrap-icons";
 import { isTeacher, isUserLoggedIn, logout } from "../lib/backend";
 import { NavLink, Link } from "react-router-dom";
 
@@ -20,19 +20,25 @@ const Header = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <NavLink to={"/"}>Theory Notes</NavLink>
+                <NavLink to={"/"}>Home</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/theory"}>Theory Notes</NavLink>
               </li>
               <li>
                 <NavLink to={"/revision"}>Reivision Notes</NavLink>
               </li>
-              {isUserLoggedIn && (
-                <li>
+              <li>
+                {isUserLoggedIn ? (
                   <div onClick={logout} className="font-bold italic">
                     Logout
                   </div>
-                </li>
-              )}
-
+                ) : (
+                  <NavLink to={"/login"} className="font-bold italic">
+                    Login
+                  </NavLink>
+                )}
+              </li>
               {isUserLoggedIn && isTeacher && (
                 <>
                   <li className="menu-title">
@@ -52,18 +58,12 @@ const Header = () => {
           </Link>
         </div>
         <div className="navbar-end">
-          <NavLink to={"/"} className="btn btn-ghost btn-circle">
+          <NavLink to={"/theory"} className="btn btn-ghost btn-circle">
             <Book className="text-xl font-semibold" />
           </NavLink>
-          {isUserLoggedIn ? (
-            <div className="btn btn-ghost btn-circle" onClick={logout}>
-              <BoxArrowRight className="text-xl font-semibold" />
-            </div>
-          ) : (
-            <NavLink to={"/login"} className="btn btn-ghost btn-circle">
-              <Key className="text-xl font-semibold -rotate-45" />
-            </NavLink>
-          )}
+          <NavLink to={"/revision"} className="btn btn-ghost btn-circle">
+            <LightningCharge className="text-xl font-semibold" />
+          </NavLink>
         </div>
       </div>
     </>
