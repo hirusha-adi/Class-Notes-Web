@@ -24,8 +24,26 @@ const AllRoutes = () => {
       <Routes>
         {/* Main (for General Public) */}
         <Route path="/" element={<Home />} />
-        <Route path="/theory" element={<Notes noteType="theory" />} />
-        <Route path="/revision" element={<Notes noteType="revision" />} />
+        <Route
+          path="/theory"
+          element={
+            isUserLoggedIn ? (
+              <Notes noteType="theory" />
+            ) : (
+              <Navigate to={"/login"} />
+            )
+          }
+        />
+        <Route
+          path="/revision"
+          element={
+            isUserLoggedIn ? (
+              <Notes noteType="revision" />
+            ) : (
+              <Navigate to={"/login"} />
+            )
+          }
+        />
 
         {/* Auth */}
         {/* ------------------------- */}

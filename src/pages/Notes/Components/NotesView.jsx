@@ -3,15 +3,17 @@ import { useState } from "react";
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../../assets/sidebars/CIE-OL-CS-TH.json";
 
-const NotesView = ({ fileName }) => {
+const NotesView = ({ fileName, postFix }) => {
   const [selectedResource, setSelectedResource] = useState("move");
+
+  const noteUrl = `${fileName}-${postFix}.md`;
 
   const handleItemClick = (resourceName) => {
     setSelectedResource(resourceName);
     console.log("Selected Resource:", resourceName);
   };
 
-  console.log(fileName);
+  console.log(noteUrl);
 
   return (
     <>
@@ -59,6 +61,7 @@ const NotesView = ({ fileName }) => {
 
 NotesView.propTypes = {
   fileName: PropTypes.string.isRequired,
+  postFix: PropTypes.string.isRequired,
 };
 
 export { NotesView };

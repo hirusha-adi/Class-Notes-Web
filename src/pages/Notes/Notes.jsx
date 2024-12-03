@@ -10,7 +10,10 @@ const Notes = ({ noteType }) => {
 
   return (
     <>
-      <NotesView fileName={noteType} />
+      <NotesView
+        fileName={noteType}
+        postFix={noteType === "theory" ? "TH" : "RE"}
+      />
     </>
   );
 };
