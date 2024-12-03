@@ -1,0 +1,54 @@
+import { Route, Routes, Navigate } from "react-router-dom"
+
+import { isUserLoggedIn } from "../lib/backend";
+import {
+	// Main
+	Home,
+
+	// Auth
+	Login,
+
+	// Admin
+	AdminStatistics,
+	AdminUsersStudents,
+	AdminUsersTeachers,
+
+	// Others
+	PageNotFound
+} from "../pages"
+
+const AllRoutes = () => {
+	return (
+		<>
+			<Routes>
+				{/* Main (for General Public) */}
+				<Route path="/" element={<Home />} />
+
+				{/* Auth */}
+				{/* ------------------------- */}
+				<Route path="/login" element={isUserLoggedIn ? <Navigate to={"/admin/statistics"} /> : <Login />} />
+				{/* ------------------------- */}
+
+
+				{/* Admin Pages */}
+				{/* ------------------------- */}
+				{/* Statistics (default page after login) */}
+				<Route path="/admin/statistics" element={isUserLoggedIn ? <AdminStatistics /> : <Navigate to="/404" />} />
+				{/* Users */}
+				<Route path="/admin/users/students" element={isUserLoggedIn ? <AdminUsersStudents /> : <Navigate to="/404" />} />
+				<Route path="/admin/users/teachers" element={isUserLoggedIn ? <AdminUsersTeachers /> : <Navigate to="/404" />} />
+
+				{/* ------------------------- */}
+
+
+				{/* Errors */}
+				{/* ------------------------- */}
+				<Route path="*" element={<Navigate to="/404" />} />
+				<Route path="/404" element={<PageNotFound />} />
+				{/* ------------------------- */}
+			</Routes>
+		</>
+	);
+};
+
+export { AllRoutes }
