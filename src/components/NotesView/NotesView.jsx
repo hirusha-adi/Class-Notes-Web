@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../assets/sidebars/CIE-OL-CS-TH.json";
 
-const NotesView = () => {
+const NotesView = ({ pageTitle, fileName }) => {
   const [selectedResource, setSelectedResource] = useState("move");
 
   const handleItemClick = (resourceName) => {
@@ -10,9 +11,13 @@ const NotesView = () => {
     console.log("Selected Resource:", resourceName);
   };
 
+  console.log(fileName);
+
   return (
     <>
       <div className="flex flex-col md:flex-row mt-2">
+        <div className="text-lg">{pageTitle}</div>
+
         {/* Left (Desktop) / Top (Mobile) */}
         <div className="px-2 mx-2 mb-2 w-full md:w-auto">
           <div className="bg-base-200 rounded-box w-full md:w-64 overflow-y-auto overflow-x-hidden h-[82vh] max-h-[82vh] min-h-[82vh]">
@@ -52,6 +57,11 @@ const NotesView = () => {
       </div>
     </>
   );
+};
+
+NotesView.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
+  fileName: PropTypes.string.isRequired,
 };
 
 export { NotesView };
