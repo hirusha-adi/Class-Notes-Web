@@ -1,4 +1,6 @@
-const RecursiveMenu = ({ menu, onItemClick, selectedResource }) => {
+import PropTypes from "prop-types";
+
+const RecursiveMenu = ({ menu, onItemClick }) => {
   return (
     <ul>
       {menu.map((item, index) => (
@@ -7,28 +9,28 @@ const RecursiveMenu = ({ menu, onItemClick, selectedResource }) => {
             <details>
               <summary>{item.title}</summary>
               {item.children && (
-                <RecursiveMenu
-                  menu={item.children}
-                  onItemClick={onItemClick}
-                  selectedResource={selectedResource}
-                />
+                <RecursiveMenu menu={item.children} onItemClick={onItemClick} />
               )}
             </details>
           ) : (
-            <a
-              onClick={() => onItemClick(item.resource_name)}
-              className={
-                item.resource_name === selectedResource ? "active" : ""
-              }
-              href={`?note=${item.resource_name}`}
-            >
-              {item.title}
-            </a>
+            <a onClick={() => onItemClick(item.resource_name)}>{item.title}</a>
           )}
         </li>
       ))}
     </ul>
   );
+};
+
+RecursiveMenu.propTypes = {
+  menu: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      type: PropTypes.oneOf(["dir", "doc"]).isRequired,
+      children: PropTypes.array, // Only for directories
+      resource_name: PropTypes.string, // Only for documents
+    })
+  ).isRequired,
+  onItemClick: PropTypes.func.isRequired,
 };
 
 export { RecursiveMenu };
