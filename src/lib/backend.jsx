@@ -30,3 +30,71 @@ export async function getSubject(subject) {
     .collection("class_notes_subjects")
     .getFirstListItem(`subject="${subject}"`);
 }
+
+export async function getNote(resourceName) {
+  const x = await pb
+    .collection("class_notes_notes")
+    .getFirstListItem(`resourceName="${resourceName}"`);
+  console.log(x);
+}
+
+/* 
+Pocketbase Schema:
+------------------
+
+class_notes_users (auth)
+  feilds
+    auto
+      id
+      created
+      updated
+      uername
+      email
+      emailVisibility
+      verified
+    custom
+      name (text)
+      age (number)
+      subject (text)
+      examSeries (text)
+      isTeacher (boolean)
+
+class_notes_subjects (base)
+  feilds
+    auto
+      id
+      created
+      updated
+    custom
+      subject (text)
+      name (text)
+      code (text)
+      host (text)
+      menuJson (text)
+      menuJsonData (json)
+
+class_notes_notes (base)
+  feilds
+    auto
+      id
+      created
+      updated
+    custom
+      resourceName (text)
+      url (text)
+
+class_notes_accesss (base)
+  feilds
+    auto
+      id
+      created
+      updated
+    custom
+      userId (text)
+      resourceName (text)
+  rules
+    List/Search rule
+      @request.auth.id = @collection.class_notes_accesss.userId
+    View rule
+      @request.auth.id != ""
+*/

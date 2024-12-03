@@ -2,11 +2,14 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../../assets/sidebars/CIE-OL-CS-TH.json";
+import { getNote } from "../../../lib/backend";
 
 const NotesView = ({ fileName, postFix }) => {
   const [selectedResource, setSelectedResource] = useState("move");
 
   const noteUrl = `${fileName}-${postFix}.md`;
+
+  getNote("cie_ol_cs_th_1_hardware_devices_1_introduction");
 
   const handleItemClick = (resourceName) => {
     setSelectedResource(resourceName);
