@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../../assets/sidebars/CIE-OL-CS-TH.json";
 import { getNote } from "../../../lib/backend";
@@ -10,16 +13,27 @@ const NotesView = ({ fileName, postFix }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const noteUrl = `${fileName}-${postFix}.md`;
+  // const noteUrl = `${fileName}-${postFix}.md`;
 
   useEffect(() => {
     const fetchNote = async () => {
       try {
         setIsLoading(true);
-        const note = await getNote(noteUrl);
-      } catch {
-        let errorMessage;
-        setError(errorMessage);
+        setError(null);
+
+        const note = await getNote(selectedResource);
+        console.log(note.resources);
+        setPageContent(note);
+      } catch (error) {
+        let eMsg;
+        if (error.status === 400) {
+          eMsg = "Please report this: Authentical Error! (400: Bad Request)";
+        } else if (error.status === 404) {
+          eMsg = "You do not have permissions to view this note!";
+        } else {
+          eMsg = `An unexpected error occurred. Please try again later. (Error Code: ${error.status})`;
+        }
+        setError(eMsg);
       } finally {
         setIsLoading(false);
       }
@@ -27,14 +41,9 @@ const NotesView = ({ fileName, postFix }) => {
     fetchNote();
   }, [selectedResource]);
 
-  getNote("cie_ol_cs_th_1_hardware_devices_1_introduction");
-
   const handleItemClick = (resourceName) => {
     setSelectedResource(resourceName);
-    console.log("Selected Resource:", resourceName);
   };
-
-  console.log(noteUrl);
 
   return (
     <>
@@ -56,24 +65,29 @@ const NotesView = ({ fileName, postFix }) => {
 
         {/* Right (Desktop) / Bottom (Mobile) */}
         <div className="bg-base-100 p-4 rounded-box flex-1 px-5 h-[82vh] max-h-[82vh] min-h-[82vh]">
-          {/* {isLoading ? (
-            <div className="flex justify-center items-center h-80">
+          {isLoading ? (
+            <div className="flex justify-center items-center h-[80vh]">
               <span className="loading loading-spinner text-error"></span>
             </div>
           ) : (
             <>
               {error ? (
-                `An error occured. Please try refreshing the page! ${error}`
+                <>
+                  <div className="flex items-center justify-center min-w-full w-full h-[70vh]">
+                    <p className="text-center text-gray-700">
+                      You do not have permissions to view these notes!
+                    </p>
+                  </div>
+                </>
               ) : (
-                <div className="prose min-w-full max-w-full w-full">
-                  <Markdown remarkPlugins={[remarkGfm]}>{rawContent}</Markdown>
+                <div className="prose min-w-full max-w-full w-full h-[80vh] overflow-y-scroll">
+                  <Markdown remarkPlugins={[remarkGfm]}>
+                    {pageContent?.note}
+                  </Markdown>
                 </div>
               )}
             </>
-          )} */}
-          <div className="prose min-w-full max-w-full w-full">
-            {selectedResource && <p>Selected Resource: {selectedResource}</p>}
-          </div>
+          )}
         </div>
       </div>
     </>

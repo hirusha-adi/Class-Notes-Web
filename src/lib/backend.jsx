@@ -37,10 +37,9 @@ export async function getSubject(subject) {
 }
 
 export async function getNote(resourceName) {
-  const x = await pb
+  return await pb
     .collection("class_notes_notes")
     .getFirstListItem(`resourceName="${resourceName}"`);
-  console.log(x);
 }
 
 /* 
