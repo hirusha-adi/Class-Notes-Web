@@ -1,0 +1,21 @@
+{
+  "title": "CIE O/L - Computer Science (Theory Notes)",
+  "menu": [
+    {
+      "title": "1. Hardware Devices",
+      "type": "dir",
+      "children": [
+        {
+          "title": "Introduction",
+          "type": "doc",
+          "resource_name": "cie_ol_cs_th_1_hardware_devices_1_introduction"
+        },
+        {
+          "title": "Input Devices",
+          "type": "doc",
+          "resource_name": "cie_ol_cs_th_1_hardware_devices_2_input_devices"
+        }
+      ]
+    }
+  ]
+}
