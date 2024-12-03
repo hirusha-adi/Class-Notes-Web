@@ -1,55 +1,17 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-
 import { RecursiveMenu } from "./components/RecursiveMenu";
+import jsonData from "../../assets/sidebars/CIE-OL-CS-TH.json";
 
 const Home = () => {
-  const [selectedCommand, setSelectedCommand] = useState("none");
-  const [searchParams, setSearchParams] = useSearchParams();
-
   useEffect(() => {
     document.title = `Class Notes`;
   });
 
-  useEffect(() => {
-    const currentNote = searchParams.get("note");
-    if (currentNote) {
-      setSelectedCommand(currentNote);
-    }
-  }, [searchParams]);
+  const [selectedCommand, setSelectedCommand] = useState("move");
 
   const handleItemClick = (resourceName) => {
     setSelectedCommand(resourceName);
-    setSearchParams({ note: resourceName });
-  };
-
-  const jsonData = {
-    title: "CIE O/L - Computer Science (Theory Notes)",
-    menu: [
-      {
-        title: "Paper 1",
-        type: "dir",
-        children: [
-          {
-            title: "1. Hardware Devices",
-            type: "dir",
-            children: [
-              {
-                title: "Introduction",
-                type: "doc",
-                resource_name: "cie_ol_cs_th_1_hardware_devices_1_introduction",
-              },
-              {
-                title: "Input Devices",
-                type: "doc",
-                resource_name:
-                  "cie_ol_cs_th_1_hardware_devices_2_input_devices",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    console.log("Selected Resource:", resourceName);
   };
 
   return (
