@@ -142,6 +142,9 @@ const CrudTable = () => {
               popup: "custom-swal-popup",
               confirmButton: "custom-swal-cancel-button",
             },
+            didClose: () => {
+              window.location.reload();
+            },
           });
         } else {
           Swal.fire({
