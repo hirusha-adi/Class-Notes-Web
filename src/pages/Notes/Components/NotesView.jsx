@@ -7,6 +7,7 @@ import { user } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../../assets/sidebars/CIE-OL-CS-TH.json";
 import { getNote } from "../../../lib/backend";
+import { urlSidebar } from "../../../lib/urls";
 
 const NotesView = ({ postFix }) => {
   const [selectedResource, setSelectedResource] = useState("intro");
@@ -14,10 +15,14 @@ const NotesView = ({ postFix }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const sidebarFile = `${user.record?.sujbect}-${postFix}.json`;
+  const sidebarFile = `${user.record?.subject}-${postFix}.json`;
 
   useEffect(() => {
-    // code
+    const fetchSidebarJson = async () => {
+      let jsonUrl = `${urlSidebar}${sidebarFile}`;
+      console.log(jsonUrl);
+    };
+    fetchSidebarJson();
   }, [sidebarFile]);
 
   useEffect(() => {
