@@ -5,7 +5,7 @@ import remarkGfm from "remark-gfm";
 
 import { user, getNote } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
-import { urlSidebar } from "../../../lib/urls";
+import { urlSidebar } from "../../../lib/consts";
 import { useFetchJson } from "../../../hooks";
 
 const NotesView = ({ postFix }) => {
