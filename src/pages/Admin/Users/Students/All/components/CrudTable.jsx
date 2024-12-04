@@ -6,6 +6,8 @@ import {
   ArrowClockwise,
   Pencil,
   Trash,
+  XLg,
+  CheckLg,
 } from "react-bootstrap-icons";
 
 import {
@@ -264,6 +266,7 @@ const CrudTable = () => {
                 <th>Age</th>
                 <th>Subject</th>
                 <th>Exam Series</th>
+                <th>is Verified?</th>
                 <th>Created On</th>
               </tr>
             </thead>
@@ -321,6 +324,17 @@ const CrudTable = () => {
                           <td>{item.age}</td>
                           <td>{item.subject}</td>
                           <td>{item.examSeries}</td>
+                          <td>
+                            {item.verified ? (
+                              <div className="text-green-600">
+                                <CheckLg className="text-lg" />
+                              </div>
+                            ) : (
+                              <div className="text-red-600">
+                                <XLg className="text-lg" />
+                              </div>
+                            )}
+                          </td>
                           <td>{new Date(item.created).toLocaleDateString()}</td>
                         </tr>
                       ))}
