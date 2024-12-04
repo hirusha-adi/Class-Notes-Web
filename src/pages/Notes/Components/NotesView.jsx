@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { user } from "../../../lib/backend";
+import { user, getNote } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
-import { getNote } from "../../../lib/backend";
 import { urlSidebar } from "../../../lib/urls";
 import { useFetchJson } from "../../../hooks";
 
