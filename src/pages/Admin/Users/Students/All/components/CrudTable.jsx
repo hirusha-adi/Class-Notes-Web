@@ -45,11 +45,12 @@ const CrudTable = () => {
   }, [students, setMaxPage]);
 
   const handleEdit = async (userId) => {
-    const user = await getUser(userId);
-    console.log(user);
-    const { value: formData } = await Swal.fire({
-      title: "Edit User",
-      html: `
+    try {
+      const user = await getUser(userId);
+      console.log(user);
+      const { value: formData } = await Swal.fire({
+        title: "Edit User",
+        html: `
           <div class="flex flex-col gap-4">
             <div class="form-control">
               <label class="label"><span class="label-text">Name</span></label>
@@ -99,53 +100,64 @@ const CrudTable = () => {
             </div>
           </div>
         `,
-      focusConfirm: false,
-      showCancelButton: true,
-      preConfirm: () => {
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const age = document.getElementById("age").value;
-        const subject = document.getElementById("subject").value;
-        const examSeries = document.getElementById("examSeries").value;
-        const verified = document.getElementById("verified").checked;
-        const isTeacher = document.getElementById("isTeacher").checked;
+        focusConfirm: false,
+        showCancelButton: true,
+        preConfirm: () => {
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const age = document.getElementById("age").value;
+          const subject = document.getElementById("subject").value;
+          const examSeries = document.getElementById("examSeries").value;
+          const verified = document.getElementById("verified").checked;
+          const isTeacher = document.getElementById("isTeacher").checked;
 
-        return { name, email, age, subject, examSeries, verified, isTeacher };
-      },
-      customClass: {
-        popup: "custom-swal-popup",
-        cancelButton: "custom-swal-cancel-button",
-      },
-    });
+          return { name, email, age, subject, examSeries, verified, isTeacher };
+        },
+        customClass: {
+          popup: "custom-swal-popup",
+          cancelButton: "custom-swal-cancel-button",
+        },
+      });
 
-    if (formData) {
-      const success = await updateUser(userId, formData);
-      console.log(success);
-      if (success) {
-        Swal.fire({
-          title: "Success!",
-          text: "User updated successfully.",
-          icon: "success",
-          showCancelButton: false,
-          confirmButtonText: "Close",
-          customClass: {
-            popup: "custom-swal-popup",
-            confirmButton: "custom-swal-cancel-button",
-          },
-        });
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to update user.",
-          icon: "error",
-          showCancelButton: false,
-          confirmButtonText: "Close",
-          customClass: {
-            popup: "custom-swal-popup",
-            confirmButton: "custom-swal-cancel-button",
-          },
-        });
+      if (formData) {
+        const success = await updateUser(userId, formData);
+        console.log(success);
+        if (success) {
+          Swal.fire({
+            title: "Success!",
+            text: "User updated successfully.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "Close",
+            customClass: {
+              popup: "custom-swal-popup",
+              confirmButton: "custom-swal-cancel-button",
+            },
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to update user.",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonText: "Close",
+            customClass: {
+              popup: "custom-swal-popup",
+              confirmButton: "custom-swal-cancel-button",
+            },
+          });
+        }
       }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Something went wrong! ${error}`,
+        customClass: {
+          popup: "custom-swal-popup",
+          confirmButton: "custom-swal-cancel-button",
+        },
+      });
     }
   };
 
