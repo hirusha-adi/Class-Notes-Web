@@ -86,10 +86,10 @@ const CrudTable = () => {
                       {students?.items?.map((item) => (
                         <tr key={item.id}>
                           <td>
-                            <button className="btn btn-sm">
+                            <button className="btn btn-sm text-blue-700">
                               <Pencil className="text-md" />
                             </button>
-                            <button className="btn btn-sm ml-1">
+                            <button className="btn btn-sm ml-1 text-red-700">
                               <Trash className="text-md" />
                             </button>
                           </td>
