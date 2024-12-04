@@ -70,13 +70,17 @@ const NotesView = ({ postFix }) => {
                     `Error! ${errorSidebar}`
                   ) : (
                     <>
-                      <div className="menu-title text-lg text-gray-800">
-                        {jsonData?.title}
-                      </div>
-                      <RecursiveMenu
-                        menu={jsonData?.menu}
-                        onItemClick={handleItemClick}
-                      />
+                      {jsonData && (
+                        <>
+                          <div className="menu-title text-lg text-gray-800">
+                            {jsonData?.title}
+                          </div>
+                          <RecursiveMenu
+                            menu={jsonData?.menu}
+                            onItemClick={handleItemClick}
+                          />
+                        </>
+                      )}
                     </>
                   )}
                 </>
