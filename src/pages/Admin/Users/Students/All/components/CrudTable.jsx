@@ -18,7 +18,6 @@ import { usePagination, useFetchPocketbase } from "../../../../../../hooks";
 import { tblNoOfItemsPerPage } from "../../../../../../lib/consts";
 
 const CrudTable = () => {
-  const [subjectsList, setSubjectsList] = useState([]);
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
 
   const {
