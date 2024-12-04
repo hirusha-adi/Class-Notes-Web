@@ -120,7 +120,16 @@ const CrudTable = () => {
       });
 
       if (formData) {
-        const success = await updateUser(userId, formData);
+        const success = await updateUser(
+          userId,
+          formData.name,
+          formData.email,
+          formData.age,
+          formData.subject,
+          formData.examSeries,
+          formData.verified,
+          formData.isTeacher
+        );
         console.log(success);
         if (success) {
           Swal.fire({

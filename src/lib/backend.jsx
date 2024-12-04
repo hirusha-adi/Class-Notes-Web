@@ -59,18 +59,23 @@ export async function getUser(userId) {
 
 export async function updateUser(
   userId,
-  newData
-  // newName,
-  // newEmail,
-  // newAge,
-  // newSubject,
-  // newExamSeries,
-  // newVerified,
-  // newIsTeacher
+  newName,
+  newEmail,
+  newAge,
+  newSubject,
+  newExamSeries,
+  newVerified,
+  newIsTeacher
 ) {
-  console.log(userId);
-  console.log(newData);
-  return await pb.collection("class_notes_users").update(userId, { newData });
+  return await pb.collection("class_notes_users").update(userId, {
+    name: newName,
+    email: newEmail,
+    age: newAge,
+    subject: newSubject,
+    examSeries: newExamSeries,
+    verified: newVerified,
+    isTeacher: newIsTeacher,
+  });
 }
 
 /* 
