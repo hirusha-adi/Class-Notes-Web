@@ -4,3 +4,6 @@ export { useFetchRaw } from "./useFetchRaw";
 
 // for JSOn
 export { useFetchJson } from "./useFetchJson";
+
+// for pagination
+export { usePagination } from "./usePagination";

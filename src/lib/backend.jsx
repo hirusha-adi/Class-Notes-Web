@@ -43,6 +43,7 @@ export async function getNote(resourceName) {
 }
 
 export async function getUsersPaginated(pageNo, itemsPerPage, isTeacher) {
+  console.log({ pageNo, itemsPerPage, isTeacher });
   return await pb
     .collection("class_notes_users")
     .getList(pageNo, itemsPerPage, {

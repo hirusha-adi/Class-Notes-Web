@@ -1,21 +1,40 @@
 import { useEffect, useState } from "react";
+import {
+  CaretLeft,
+  CaretRight,
+  ArrowClockwise,
+  Pencil,
+  Trash,
+} from "react-bootstrap-icons";
+
 import { getUsersPaginated } from "../../../../../../lib/backend";
+import { usePagination } from "../../../../../../hooks";
 
 const CrudTable = () => {
   const [students, setStudents] = useState([]);
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
 
+  const {
+    currentPage,
+    nextPage,
+    previousPage,
+    resetPage,
+    maxPage,
+    setMaxPage,
+  } = usePagination(1, 1, 1);
+
   useEffect(() => {
     const fetchStudents = async () => {
       const response = await getUsersPaginated(
-        1,
+        currentPage,
         tblConfItemsPerSettings,
         false
       );
       setStudents(response);
+      setMaxPage(response.totalPages);
     };
     fetchStudents();
-  }, [tblConfItemsPerSettings]);
+  }, [tblConfItemsPerSettings, currentPage]);
 
   console.log(students);
 
@@ -38,19 +57,25 @@ const CrudTable = () => {
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-              </tr>
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-              </tr>
+              {students.items?.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <button className="btn btn-sm">
+                      <Pencil className="text-md" />
+                    </button>
+                    <button className="btn btn-sm ml-1">
+                      <Trash className="text-md" />
+                    </button>
+                  </td>
+                  <td>{item.id}</td>
+                  <td>{item.email}</td>
+                  <td>{item.name}</td>
+                  <td>{item.age}</td>
+                  <td>{item.subject}</td>
+                  <td>{item.examSeries}</td>
+                  <td>{new Date(item.created).toLocaleDateString()}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -69,29 +94,42 @@ const CrudTable = () => {
                   <a onClick={() => setTblConfItemsPerSettings(10)}>10</a>
                 </li>
                 <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>20</a>
+                  <a onClick={() => setTblConfItemsPerSettings(20)}>20</a>
                 </li>
                 <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>40</a>
+                  <a onClick={() => setTblConfItemsPerSettings(40)}>40</a>
                 </li>
                 <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>50</a>
+                  <a onClick={() => setTblConfItemsPerSettings(50)}>50</a>
                 </li>
                 <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>75</a>
+                  <a onClick={() => setTblConfItemsPerSettings(75)}>75</a>
                 </li>
                 <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>100</a>
+                  <a onClick={() => setTblConfItemsPerSettings(100)}>100</a>
                 </li>
                 <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>150</a>
+                  <a onClick={() => setTblConfItemsPerSettings(150)}>150</a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="btn-group">
-            <button className="btn btn-sm">Previous</button>
-            <button className="btn btn-sm">Next</button>
+          {students && <div className="">{students?.totalItems} items.</div>}
+          <div>
+            <div className="join">
+              <button className="join-item btn btn-sm" onClick={previousPage}>
+                <CaretLeft className="text-md" />
+              </button>
+              <button className="join-item btn btn-sm">
+                Page {currentPage} of {maxPage}
+              </button>
+              <button className="join-item btn btn-sm" onClick={nextPage}>
+                <CaretRight className="text-md" />
+              </button>
+            </div>
+            <button className="btn btn-sm ml-2">
+              <ArrowClockwise className="text-md" onClick={resetPage} />
+            </button>
           </div>
         </div>
       </div>
