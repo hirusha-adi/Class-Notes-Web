@@ -9,6 +9,7 @@ import {
 
 import { getUsersPaginated } from "../../../../../../lib/backend";
 import { usePagination, useFetchPocketbase } from "../../../../../../hooks";
+import { tblNoOfItemsPerPage } from "../../../../../../lib/consts";
 
 const CrudTable = () => {
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
@@ -119,27 +120,11 @@ const CrudTable = () => {
                 tabIndex={0}
                 className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
               >
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(10)}>10</a>
-                </li>
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(20)}>20</a>
-                </li>
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(40)}>40</a>
-                </li>
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(50)}>50</a>
-                </li>
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(75)}>75</a>
-                </li>
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(100)}>100</a>
-                </li>
-                <li>
-                  <a onClick={() => setTblConfItemsPerSettings(150)}>150</a>
-                </li>
+                {tblNoOfItemsPerPage.map((num) => (
+                  <li key={num}>
+                    <a onClick={() => setTblConfItemsPerSettings(num)}>{num}</a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
