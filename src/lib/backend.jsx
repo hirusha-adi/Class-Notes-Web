@@ -51,6 +51,28 @@ export async function getUsersPaginated(pageNo, itemsPerPage, isTeacher) {
     });
 }
 
+export async function getUser(userId) {
+  return await pb
+    .collection("class_notes_users")
+    .getFirstListItem(`id="${userId}"`);
+}
+
+export async function updateUser(
+  userId,
+  newData
+  // newName,
+  // newEmail,
+  // newAge,
+  // newSubject,
+  // newExamSeries,
+  // newVerified,
+  // newIsTeacher
+) {
+  console.log(userId);
+  console.log(newData);
+  return await pb.collection("class_notes_users").update(userId, { newData });
+}
+
 /* 
 Pocketbase Schema:
 ------------------
