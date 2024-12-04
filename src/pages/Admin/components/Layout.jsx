@@ -1,8 +1,15 @@
-import { Robot, ClockHistory, LayoutSidebar, Book, Gear, Chat, PieChart } from "react-bootstrap-icons";
+import PropTypes from "prop-types";
+import {
+  LayoutSidebar,
+  PieChart,
+  People,
+  Person,
+  PersonAdd,
+  PersonCircle,
+} from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 
 const Layout = ({ locationBreadcrumbs, pageTitle, children }) => {
-
   return (
     <>
       <div className="drawer lg:drawer-open">
@@ -37,25 +44,61 @@ const Layout = ({ locationBreadcrumbs, pageTitle, children }) => {
             <div className="mt-6 font-bold text-3xl text-center md:text-left">
               {pageTitle}
             </div>
-            <div className="pt-8">
-              {children}
-            </div>
+            <div className="pt-8">{children}</div>
           </div>
         </div>
         {/* end: page content */}
 
         {/* start: side drawer */}
         <div className="drawer-side">
-          <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+          <label
+            htmlFor="my-drawer-2"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
           <ul className="menu menu-sm bg-base-200 rounded-box min-h-full w-80 p-4">
-            <h2 className="menu-title text-lg text-gray-600">Admin Dashboard</h2>
-            <li><NavLink to={"/admin/statistics"}><PieChart className="text-md" />Statistics</NavLink></li>
+            <h2 className="menu-title text-lg text-gray-600">
+              Admin Dashboard
+            </h2>
+            <li>
+              <NavLink to={"/admin/statistics"}>
+                <PieChart className="text-md" />
+                Statistics
+              </NavLink>
+            </li>
             <li>
               <details open>
-                <summary><Gear className="text-md" /> Users</summary>
+                <summary>
+                  <People className="text-md" /> Users
+                </summary>
                 <ul>
-                  <li><NavLink to={"/admin/users/students"}><Robot className="text-md" />Students</NavLink></li>
-                  <li><NavLink to={"/admin/users/teachers"}><PieChart className="text-md" />Teachers</NavLink></li>
+                  <li>
+                    <details open>
+                      <summary>
+                        <PersonCircle className="text-md" /> Students
+                      </summary>
+                      <ul>
+                        <li>
+                          <NavLink to={"/admin/users/students/all"}>
+                            <Person className="text-md" />
+                            All
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to={"/admin/users/students/new"}>
+                            <PersonAdd className="text-md" />
+                            New
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li>
+                    <NavLink to={"/admin/users/teachers"}>
+                      <PieChart className="text-md" />
+                      Teachers
+                    </NavLink>
+                  </li>
                 </ul>
               </details>
             </li>
@@ -65,6 +108,15 @@ const Layout = ({ locationBreadcrumbs, pageTitle, children }) => {
       </div>
     </>
   );
+};
+
+Layout.propTypes = {
+  locationBreadcrumbs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  pageTitle: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export { Layout };

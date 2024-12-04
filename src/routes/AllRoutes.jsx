@@ -11,7 +11,8 @@ import {
 
   // Admin
   AdminStatistics,
-  AdminUsersStudents,
+  AdminUsersStudentsAll,
+  AdminUsersStudentsNew,
   AdminUsersTeachers,
 
   // Others
@@ -80,10 +81,20 @@ const AllRoutes = () => {
         />
         {/* Users */}
         <Route
-          path="/admin/users/students"
+          path="/admin/users/students/all"
           element={
             isUserLoggedIn && isTeacher ? (
-              <AdminUsersStudents />
+              <AdminUsersStudentsAll />
+            ) : (
+              <Navigate to="/404" />
+            )
+          }
+        />
+        <Route
+          path="/admin/users/students/new"
+          element={
+            isUserLoggedIn && isTeacher ? (
+              <AdminUsersStudentsNew />
             ) : (
               <Navigate to="/404" />
             )
