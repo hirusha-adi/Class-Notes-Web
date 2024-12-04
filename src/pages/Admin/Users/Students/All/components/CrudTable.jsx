@@ -12,6 +12,7 @@ import {
   getUsersPaginated,
   getUser,
   updateUser,
+  deleteUser,
   getSubjectsAll,
 } from "../../../../../../lib/backend";
 import { usePagination, useFetchPocketbase } from "../../../../../../hooks";
@@ -196,6 +197,58 @@ const CrudTable = () => {
     }
   };
 
+  const handleDelete = async (
+    userId,
+    userEmail,
+    userName,
+    userSubject,
+    userExamSeries
+  ) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: `You won't be able to revert this! You are going to delete: ${userName} (${userEmail}) [${userSubject} - ${userExamSeries}]`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      customClass: {
+        popup: "custom-swal-popup",
+        confirmButton: "custom-swal-cancel-button",
+      },
+    });
+
+    if (result.isConfirmed) {
+      const success = await deleteUser(userId);
+
+      if (success) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "The user has been deleted.",
+          icon: "success",
+          showCancelButton: false,
+          confirmButtonText: "Close",
+          customClass: {
+            popup: "custom-swal-popup",
+          },
+          didClose: () => {
+            window.location.reload();
+          },
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to delete user.",
+          icon: "error",
+          showCancelButton: false,
+          confirmButtonText: "Close",
+          customClass: {
+            popup: "custom-swal-popup",
+          },
+        });
+      }
+    }
+  };
+
   return (
     <>
       <div className="bg-gray-50 rounded-xl p-2">
@@ -247,7 +300,18 @@ const CrudTable = () => {
                             >
                               <Pencil className="text-md" />
                             </button>
-                            <button className="btn btn-sm ml-1 text-red-700">
+                            <button
+                              className="btn btn-sm ml-1 text-red-700"
+                              onClick={() =>
+                                handleDelete(
+                                  item.id,
+                                  item.email,
+                                  item.name,
+                                  item.subject,
+                                  item.examSeries
+                                )
+                              } // Handle Delete
+                            >
                               <Trash className="text-md" />
                             </button>
                           </td>
