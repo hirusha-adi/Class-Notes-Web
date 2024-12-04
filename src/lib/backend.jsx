@@ -43,7 +43,7 @@ export async function getNote(resourceName) {
 }
 
 export async function getUsersPaginated(pageNo, itemsPerPage, isTeacher) {
-  console.log({ pageNo, itemsPerPage, isTeacher });
+  // console.log({ pageNo, itemsPerPage, isTeacher });
   return await pb
     .collection("class_notes_users")
     .getList(pageNo, itemsPerPage, {
@@ -76,6 +76,10 @@ export async function updateUser(
     verified: newVerified,
     isTeacher: newIsTeacher,
   });
+}
+
+export async function getSubjectsAll() {
+  return await pb.collection("class_notes_subjects").getFullList();
 }
 
 /* 

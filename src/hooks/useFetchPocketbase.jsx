@@ -12,7 +12,6 @@ export function useFetchPocketbase(fetchFunction, ...args) {
       try {
         const result = await fetchFunction(...args);
         setData(result);
-        console.log(result);
       } catch (err) {
         console.error("Error fetching data from PocketBase:", err);
         setError(err.message || "An error occurred");

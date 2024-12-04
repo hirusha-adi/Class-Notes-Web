@@ -12,12 +12,20 @@ import {
   getUsersPaginated,
   getUser,
   updateUser,
+  getSubjectsAll,
 } from "../../../../../../lib/backend";
 import { usePagination, useFetchPocketbase } from "../../../../../../hooks";
 import { tblNoOfItemsPerPage } from "../../../../../../lib/consts";
 
 const CrudTable = () => {
+  const [subjectsList, setSubjectsList] = useState([]);
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
+
+  const {
+    data: subjects,
+    loading: subjectsLoading,
+    error: subjectsError,
+  } = useFetchPocketbase(getSubjectsAll);
 
   const {
     currentPage,
@@ -27,6 +35,7 @@ const CrudTable = () => {
     maxPage,
     setMaxPage,
   } = usePagination(1, 1, 1);
+
   const {
     data: students,
     loading,
@@ -47,7 +56,6 @@ const CrudTable = () => {
   const handleEdit = async (userId) => {
     try {
       const user = await getUser(userId);
-      console.log(user);
       const { value: formData } = await Swal.fire({
         title: "Edit User",
         html: `
@@ -71,10 +79,27 @@ const CrudTable = () => {
               }" />
             </div>
             <div class="form-control">
-              <label class="label"><span class="label-text">Subject</span></label>
-              <input id="subject" type="text" class="input input-bordered w-full" value="${
-                user.subject
-              }" />
+              ${
+                subjectsError
+                  ? `<p class="text-red-500">Failed to load subjects. Please try again later.</p>`
+                  : subjectsLoading
+                  ? `<div class="flex justify-center items-center">
+                    <span class="loading loading-bars loading-md"></span>
+                  </div>`
+                  : `<label class="label"><span class="label-text">Subject</span></label>
+                  <select id="subject" class="select select-bordered w-full">
+                    ${subjects
+                      .map(
+                        (subject) =>
+                          `<option value="${subject.subject}" ${
+                            user.subject === subject.subject ? "selected" : ""
+                          }>
+                        ${subject.subject}
+                      </option>`
+                      )
+                      .join("")}
+                  </select>`
+              }
             </div>
             <div class="form-control">
               <label class="label"><span class="label-text">Exam Series</span></label>
@@ -130,7 +155,6 @@ const CrudTable = () => {
           formData.verified,
           formData.isTeacher
         );
-        console.log(success);
         if (success) {
           Swal.fire({
             title: "Success!",
