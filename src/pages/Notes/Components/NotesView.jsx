@@ -3,17 +3,22 @@ import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import { user } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
 import jsonData from "../../../assets/sidebars/CIE-OL-CS-TH.json";
 import { getNote } from "../../../lib/backend";
 
-const NotesView = ({ fileName, postFix }) => {
+const NotesView = ({ postFix }) => {
   const [selectedResource, setSelectedResource] = useState("intro");
   const [pageContent, setPageContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // const noteUrl = `${fileName}-${postFix}.md`;
+  const sidebarFile = `${user.record?.sujbect}-${postFix}.json`;
+
+  useEffect(() => {
+    // code
+  }, [sidebarFile]);
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -95,7 +100,6 @@ const NotesView = ({ fileName, postFix }) => {
 };
 
 NotesView.propTypes = {
-  fileName: PropTypes.string.isRequired,
   postFix: PropTypes.string.isRequired,
 };
 
