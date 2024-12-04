@@ -8,10 +8,9 @@ import {
 } from "react-bootstrap-icons";
 
 import { getUsersPaginated } from "../../../../../../lib/backend";
-import { usePagination } from "../../../../../../hooks";
+import { usePagination, useFetchPocketbase } from "../../../../../../hooks";
 
 const CrudTable = () => {
-  const [students, setStudents] = useState([]);
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
 
   const {
@@ -22,19 +21,22 @@ const CrudTable = () => {
     maxPage,
     setMaxPage,
   } = usePagination(1, 1, 1);
+  const {
+    data: students,
+    loading,
+    error,
+  } = useFetchPocketbase(
+    getUsersPaginated,
+    currentPage,
+    tblConfItemsPerSettings,
+    false
+  );
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      const response = await getUsersPaginated(
-        currentPage,
-        tblConfItemsPerSettings,
-        false
-      );
-      setStudents(response);
-      setMaxPage(response.totalPages);
-    };
-    fetchStudents();
-  }, [tblConfItemsPerSettings, currentPage]);
+    if (students?.totalPages) {
+      setMaxPage(students.totalPages);
+    }
+  }, [students, setMaxPage]);
 
   console.log(students);
 
@@ -57,25 +59,52 @@ const CrudTable = () => {
               </tr>
             </thead>
             <tbody>
-              {students.items?.map((item) => (
-                <tr key={item.id}>
-                  <td>
-                    <button className="btn btn-sm">
-                      <Pencil className="text-md" />
-                    </button>
-                    <button className="btn btn-sm ml-1">
-                      <Trash className="text-md" />
-                    </button>
+              {loading ? (
+                <tr>
+                  <td colSpan="8" className="h-[40vh] text-center">
+                    <div className="flex justify-center items-center h-full text-lg font-medium">
+                      <span className="loading loading-ball loading-xs"></span>
+                      <span className="loading loading-ball loading-sm"></span>
+                      <span className="loading loading-ball loading-md"></span>
+                      <span className="loading loading-ball loading-lg"></span>
+                    </div>
                   </td>
-                  <td>{item.id}</td>
-                  <td>{item.email}</td>
-                  <td>{item.name}</td>
-                  <td>{item.age}</td>
-                  <td>{item.subject}</td>
-                  <td>{item.examSeries}</td>
-                  <td>{new Date(item.created).toLocaleDateString()}</td>
                 </tr>
-              ))}
+              ) : (
+                <>
+                  {error ? (
+                    <tr>
+                      <td colSpan="8" className="h-[40vh] text-center">
+                        <div className="flex justify-center items-center h-full text-lg font-medium">
+                          <p>An error occured: {error}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {students?.items?.map((item) => (
+                        <tr key={item.id}>
+                          <td>
+                            <button className="btn btn-sm">
+                              <Pencil className="text-md" />
+                            </button>
+                            <button className="btn btn-sm ml-1">
+                              <Trash className="text-md" />
+                            </button>
+                          </td>
+                          <td>{item.id}</td>
+                          <td>{item.email}</td>
+                          <td>{item.name}</td>
+                          <td>{item.age}</td>
+                          <td>{item.subject}</td>
+                          <td>{item.examSeries}</td>
+                          <td>{new Date(item.created).toLocaleDateString()}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
             </tbody>
           </table>
         </div>
