@@ -8,8 +8,6 @@ const useFetchJson = (url) => {
   useEffect(() => {
     if (!url) return;
 
-    console.log(url);
-
     const fetchRaw = async () => {
       try {
         setIsLoading(true);

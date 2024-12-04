@@ -27,7 +27,6 @@ const NotesView = ({ postFix }) => {
         setErrorNote(null);
 
         const note = await getNote(selectedResource);
-        console.log(note.resources);
         setPageContent(note);
       } catch (error) {
         let eMsg;
