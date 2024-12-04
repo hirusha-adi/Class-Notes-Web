@@ -1,4 +1,5 @@
 import { Layout } from "../../../components/Layout";
+import { CrudTable } from "./components/CrudTable";
 
 const All = () => {
   return (
@@ -7,7 +8,10 @@ const All = () => {
         pageTitle={"All Students"}
         locationBreadcrumbs={["Users", "Students", "All"]}
       >
-        <div className="m-12">Stuff</div>
+        <div className="mx-2 mt-3">
+          {/* stuff */}
+          <CrudTable />
+        </div>
       </Layout>
     </>
   );
