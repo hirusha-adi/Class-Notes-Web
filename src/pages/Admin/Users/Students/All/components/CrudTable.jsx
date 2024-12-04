@@ -29,6 +29,9 @@ const CrudTable = () => {
     error: subjectsError,
   } = useFetchPocketbase(getSubjectsAll);
 
+  const [tblFilterName, setTblFilterName] = useState("");
+  const [tblFilterOrder, setTblFilterOrder] = useState("");
+
   const {
     currentPage,
     nextPage,
