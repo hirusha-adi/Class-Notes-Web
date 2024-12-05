@@ -110,7 +110,7 @@ const CrudTable = () => {
         </div>
         <div class="form-control mt-4">
           <label class="label"><span class="label-text">Note</span></label>
-          <textarea id="note" class="textarea textarea-bordered w-full">${currentNote.note}</textarea>
+          <textarea id="note" class="textarea textarea-bordered w-full h-[40vh]">${currentNote.note}</textarea>
         </div>
       `,
         focusConfirm: false,
