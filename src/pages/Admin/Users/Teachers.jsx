@@ -4,7 +4,7 @@ const Teachers = () => {
   return (
     <>
       <Layout
-        pageTitle={"SLOS Statistics"}
+        pageTitle={"Class Teachers / Admins"}
         locationBreadcrumbs={["Users", "Teachers"]}
       >
         <div

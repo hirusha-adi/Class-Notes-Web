@@ -4,7 +4,7 @@ const Statistics = () => {
   return (
     <>
       <Layout
-        pageTitle={"SLOS Statistics"}
+        pageTitle={"Site Statistics"}
         locationBreadcrumbs={["Statistics"]}
       >
         <div
