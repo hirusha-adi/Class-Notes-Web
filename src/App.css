@@ -8,6 +8,10 @@
   @apply rounded-2xl !important;
 }
 
+.custom-swal-popup-wide {
+  @apply rounded-2xl w-[70%] !important;
+}
+
 .custom-swal-cancel-button {
   @apply text-white btn btn-error !important;
 }

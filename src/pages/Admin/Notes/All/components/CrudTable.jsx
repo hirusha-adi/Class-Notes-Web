@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Navigate } from "react-router-dom";
 
 import {
   CaretLeft,
@@ -18,7 +17,7 @@ import {
 import {
   getNotesPaginated,
   getNoteById,
-  // updateUser,
+  updateNote,
   deleteNote,
   // getSubjectsAll,
 } from "../../../../../lib/backend";
@@ -79,8 +78,108 @@ const CrudTable = () => {
     }
   }, [notes, setMaxPage]);
 
-  const handleEdit = async (resourceName) => {
-    <Navigate to={`/admin/notes/edit/${resourceName}`} />;
+  const handleEdit = async (noteId) => {
+    try {
+      const currentNote = await getNoteById(noteId);
+
+      if (!currentNote) {
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to fetch note details.",
+          icon: "error",
+          showCancelButton: false,
+          confirmButtonText: "Close",
+          customClass: {
+            popup: "custom-swal-popup",
+          },
+        });
+        return;
+      }
+
+      // Display the SweetAlert2 form
+      const { value: formValues } = await Swal.fire({
+        title: "Edit Note",
+        html: `
+        <div class="form-control">
+          <label class="label"><span class="label-text">Resource Name</span></label>
+          <input id="resourceName" type="text" class="input input-bordered w-full" value="${currentNote.resourceName}" />
+        </div>
+        <div class="form-control mt-4">
+          <label class="label"><span class="label-text">URL</span></label>
+          <input id="url" type="text" class="input input-bordered w-full" value="${currentNote.url}" />
+        </div>
+        <div class="form-control mt-4">
+          <label class="label"><span class="label-text">Note</span></label>
+          <textarea id="note" class="textarea textarea-bordered w-full">${currentNote.note}</textarea>
+        </div>
+      `,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: "Update",
+        cancelButtonText: "Cancel",
+        customClass: {
+          popup: "custom-swal-popup-wide",
+        },
+        preConfirm: () => {
+          const resourceName = document
+            .getElementById("resourceName")
+            .value.trim();
+          const url = document.getElementById("url").value.trim();
+          const note = document.getElementById("note").value.trim();
+
+          if (!resourceName || !url || !note) {
+            Swal.showValidationMessage("All fields are required!");
+            return null;
+          }
+          return { resourceName, url, note };
+        },
+      });
+
+      // If form was submitted
+      if (formValues) {
+        const { resourceName, url, note } = formValues;
+
+        const success = await updateNote(noteId, resourceName, url, note);
+
+        if (success) {
+          Swal.fire({
+            title: "Success!",
+            text: "Note updated successfully.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "Close",
+            customClass: {
+              popup: "custom-swal-popup",
+            },
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to update note.",
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonText: "Close",
+            customClass: {
+              popup: "custom-swal-popup",
+            },
+          });
+        }
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "An unexpected error occurred.",
+        icon: "error",
+        showCancelButton: false,
+        confirmButtonText: "Close",
+        customClass: {
+          popup: "custom-swal-popup",
+        },
+      });
+      console.error("Error updating note:", error);
+    }
   };
 
   const handleDelete = async (nodeId, resourceName) => {

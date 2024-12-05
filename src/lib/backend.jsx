@@ -48,6 +48,18 @@ export async function getNoteById(noteId) {
     .getFirstListItem(`id="${noteId}"`);
 }
 
+export async function deleteNote(noteId) {
+  return await pb.collection("class_notes_notes").delete(noteId);
+}
+
+export async function updateNote(noteId, newResourceName, newUrl, newNote) {
+  return await pb.collection("class_notes_notes").update(noteId, {
+    resourceName: newResourceName,
+    url: newUrl,
+    note: newNote,
+  });
+}
+
 export async function getUsersPaginated(
   pageNo,
   itemsPerPage,
@@ -63,6 +75,7 @@ export async function getUsersPaginated(
       sort: `${tblFilterOrder === "asc" ? "+" : "-"}${tblFilterName}`,
     });
 }
+
 export async function getUser(userId) {
   return await pb
     .collection("class_notes_users")
@@ -147,10 +160,6 @@ export async function getNotesPaginated(
     });
 }
 
-export async function deleteNote(nodeId) {
-  return await pb.collection("class_notes_notes").delete(nodeId);
-}
-
 /* 
 Pocketbase Schema:
 ------------------
@@ -195,6 +204,7 @@ class_notes_notes (base)
     custom
       resourceName (text)
       url (text)
+      note (text)
   rules
     List/Search rule
       @request.auth.id = @collection.class_notes_accesss.userId
