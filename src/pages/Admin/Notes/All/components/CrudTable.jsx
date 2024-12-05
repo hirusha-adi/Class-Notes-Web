@@ -67,7 +67,9 @@ const CrudTable = () => {
     currentPage,
     tblConfItemsPerSettings,
     tblFilterName,
-    tblFilterOrder
+    tblFilterOrder,
+    tblFilterSubjectName,
+    tblFilterSubjectType
   );
 
   useEffect(() => {
@@ -278,8 +280,8 @@ const CrudTable = () => {
                 className="select select-bordered text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md select-sm"
               >
                 <option value="all">All</option>
-                <option value="TH">Theory</option>
-                <option value="RE">Revision</option>
+                <option value="th">Theory</option>
+                <option value="re">Revision</option>
               </select>
             </div>
           </div>

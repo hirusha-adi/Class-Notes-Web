@@ -151,13 +151,43 @@ export async function getNotesPaginated(
   pageNo,
   itemsPerPage,
   tblFilterName = "created",
-  tblFilterOrder = "asc"
+  tblFilterOrder = "asc",
+  tblFilterSubjectName = "all",
+  tblFilterSubjectType = "all"
 ) {
+  let strFilter = "";
+  if (tblFilterSubjectName !== "all" || tblFilterSubjectType !== "all") {
+    strFilter += `resourceName~"`;
+  }
+
+  if (tblFilterSubjectName === "all" && tblFilterSubjectType !== "all") {
+    strFilter += `_${tblFilterSubjectType}_`;
+  } else {
+    if (tblFilterSubjectName !== "all") {
+      strFilter += `${tblFilterSubjectName}_`;
+    }
+    if (tblFilterSubjectType !== "all") {
+      strFilter += `${tblFilterSubjectType}_`;
+    }
+  }
+
+  if (tblFilterSubjectName !== "all" || tblFilterSubjectType !== "all") {
+    strFilter += `"`;
+  }
+
+  console.log(strFilter);
+
+  const queryOptions = {
+    sort: `${tblFilterOrder === "asc" ? "+" : "-"}${tblFilterName}`,
+  };
+
+  if (tblFilterSubjectName !== "all" || tblFilterSubjectType !== "all") {
+    queryOptions.filter = strFilter;
+  }
+
   return await pb
     .collection("class_notes_notes")
-    .getList(pageNo, itemsPerPage, {
-      sort: `${tblFilterOrder === "asc" ? "+" : "-"}${tblFilterName}`,
-    });
+    .getList(pageNo, itemsPerPage, queryOptions);
 }
 
 /* 
