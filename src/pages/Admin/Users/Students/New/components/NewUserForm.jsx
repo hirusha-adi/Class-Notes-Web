@@ -79,7 +79,7 @@ const NewUserForm = () => {
 
   return (
     <form
-      className="w-full mx-auto p-6 bg-gray-100 shadow-lg rounded-lg"
+      className="w-full mx-auto p-6 bg-gray-100 rounded-lg"
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl font-bold text-center mb-6">
