@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Navigate } from "react-router-dom";
+
 import {
   CaretLeft,
   CaretRight,
@@ -14,26 +18,39 @@ import {
 import {
   getNotesPaginated,
   getNoteById,
-  updateUser,
+  // updateUser,
   deleteNote,
-  getSubjectsAll,
+  // getSubjectsAll,
 } from "../../../../../lib/backend";
 import { usePagination, useFetchPocketbase } from "../../../../../hooks";
 import { tblNoOfItemsPerPage } from "../../../../../lib/consts";
 import { FilterOrderArrows } from "../../../components/FilterOrderArrows";
-import { Navigate } from "react-router-dom";
 
 const CrudTable = () => {
+  const [viewCurrentNoteId, setViewCurrentNoteId] = useState("");
+  const [viewIsMarkdown, setViewIsMarkdown] = useState(false);
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
-
-  const {
-    data: subjects,
-    loading: subjectsLoading,
-    error: subjectsError,
-  } = useFetchPocketbase(getSubjectsAll);
-
   const [tblFilterName, setTblFilterName] = useState("created");
   const [tblFilterOrder, setTblFilterOrder] = useState("asc");
+
+  // const {
+  //   data: subjects,
+  //   loading: subjectsLoading,
+  //   error: subjectsError,
+  // } = useFetchPocketbase(getSubjectsAll);
+
+  const {
+    data: viewCurrentNote,
+    loading: viewCurrentNoteIsLoading,
+    error: viewCurrentNoteError,
+  } = useFetchPocketbase(getNoteById, viewCurrentNoteId);
+
+  const handleView = async (nodeId, isMarkdown = false) => {
+    console.log(nodeId, isMarkdown);
+    setViewIsMarkdown(isMarkdown);
+    setViewCurrentNoteId(nodeId);
+    document.getElementById("modal_view_note").showModal();
+  };
 
   const {
     currentPage,
@@ -64,10 +81,6 @@ const CrudTable = () => {
 
   const handleEdit = async (resourceName) => {
     <Navigate to={`/admin/notes/edit/${resourceName}`} />;
-  };
-
-  const handleView = async (nodeId, isMarkdown = false) => {
-    console.log(nodeId, isMarkdown);
   };
 
   const handleDelete = async (nodeId, resourceName) => {
@@ -276,6 +289,37 @@ const CrudTable = () => {
           </div>
         </div>
       </div>
+      <dialog id="modal_view_note" className="modal">
+        <div className="modal-box w-11/12 max-w-5xl">
+          <div className="w-full">
+            <h3 className="font-bold text-lg inline">Title: </h3>
+            <div className="inline">{viewCurrentNote?.resourceName}</div>
+            <br />
+            <h3 className="font-bold text-lg inline">URL: </h3>
+            <div className="inline">{viewCurrentNote?.url}</div>
+          </div>
+          <div className="py-4 h-[60vh] overflow-x-scroll overflow-y-scroll mt-5">
+            {viewIsMarkdown ? (
+              <>
+                <div className="prose w-full min-w-full max-w-full">
+                  <Markdown remarkPlugins={[remarkGfm]}>
+                    {viewCurrentNote?.note}
+                  </Markdown>
+                </div>
+              </>
+            ) : (
+              <pre>{viewCurrentNote?.note}</pre>
+            )}
+            {(viewCurrentNoteIsLoading, viewCurrentNoteError)}
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

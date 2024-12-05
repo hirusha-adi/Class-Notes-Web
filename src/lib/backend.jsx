@@ -42,8 +42,10 @@ export async function getNoteByResourceName(resourceName) {
     .getFirstListItem(`resourceName="${resourceName}"`);
 }
 
-export async function getNoteById(nodeId) {
-  return await pb.collection("class_notes_notes").getFirstListItem(nodeId);
+export async function getNoteById(noteId) {
+  return await pb
+    .collection("class_notes_notes")
+    .getFirstListItem(`id="${noteId}"`);
 }
 
 export async function getUsersPaginated(
