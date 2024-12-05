@@ -19,6 +19,7 @@ import {
 } from "../../../../../../lib/backend";
 import { usePagination, useFetchPocketbase } from "../../../../../../hooks";
 import { tblNoOfItemsPerPage } from "../../../../../../lib/consts";
+import { FilterOrderArrows } from "../../../../components/FilterOrderArrows";
 
 const CrudTable = () => {
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
@@ -29,8 +30,8 @@ const CrudTable = () => {
     error: subjectsError,
   } = useFetchPocketbase(getSubjectsAll);
 
-  const [tblFilterName, setTblFilterName] = useState("");
-  const [tblFilterOrder, setTblFilterOrder] = useState("");
+  const [tblFilterName, setTblFilterName] = useState("created");
+  const [tblFilterOrder, setTblFilterOrder] = useState("asc");
 
   const {
     currentPage,
@@ -49,7 +50,9 @@ const CrudTable = () => {
     getUsersPaginated,
     currentPage,
     tblConfItemsPerSettings,
-    false
+    false,
+    tblFilterName,
+    tblFilterOrder
   );
 
   useEffect(() => {
@@ -254,6 +257,15 @@ const CrudTable = () => {
     }
   };
 
+  const handleFilter = async (field) => {
+    if (field === tblFilterName) {
+      setTblFilterOrder(tblFilterOrder === "asc" ? "desc" : "asc");
+    } else {
+      setTblFilterName(field);
+      setTblFilterOrder("asc");
+    }
+  };
+
   return (
     <>
       <div className="bg-gray-50 rounded-xl p-2">
@@ -264,13 +276,38 @@ const CrudTable = () => {
               <tr>
                 <th>Actions</th>
                 <th>ID</th>
-                <th>Email</th>
-                <th>Name</th>
+                <th onClick={() => handleFilter("email")}>
+                  Email
+                  {tblFilterName === "email" && (
+                    <FilterOrderArrows order={tblFilterOrder} />
+                  )}
+                </th>
+                <th onClick={() => handleFilter("name")}>
+                  Name{" "}
+                  {tblFilterName === "name" && (
+                    <FilterOrderArrows order={tblFilterOrder} />
+                  )}
+                </th>
                 <th>Age</th>
                 <th>Subject</th>
-                <th>Exam Series</th>
-                <th>is Verified?</th>
-                <th>Created On</th>
+                <th onClick={() => handleFilter("examSeries")}>
+                  Exam Series{" "}
+                  {tblFilterName === "examSeries" && (
+                    <FilterOrderArrows order={tblFilterOrder} />
+                  )}
+                </th>
+                <th onClick={() => handleFilter("verified")}>
+                  is Verified?{" "}
+                  {tblFilterName === "verified" && (
+                    <FilterOrderArrows order={tblFilterOrder} />
+                  )}
+                </th>
+                <th onClick={() => handleFilter("created")}>
+                  Created On{" "}
+                  {tblFilterName === "created" && (
+                    <FilterOrderArrows order={tblFilterOrder} />
+                  )}
+                </th>
               </tr>
             </thead>
             <tbody>

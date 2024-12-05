@@ -42,15 +42,21 @@ export async function getNote(resourceName) {
     .getFirstListItem(`resourceName="${resourceName}"`);
 }
 
-export async function getUsersPaginated(pageNo, itemsPerPage, isTeacher) {
+export async function getUsersPaginated(
+  pageNo,
+  itemsPerPage,
+  isTeacher,
+  tblFilterName = "created",
+  tblFilterOrder = "asc"
+) {
   // console.log({ pageNo, itemsPerPage, isTeacher });
   return await pb
     .collection("class_notes_users")
     .getList(pageNo, itemsPerPage, {
       filter: `isTeacher=${String(isTeacher)}`,
+      sort: `${tblFilterOrder === "asc" ? "+" : "-"}${tblFilterName}`,
     });
 }
-
 export async function getUser(userId) {
   return await pb
     .collection("class_notes_users")
