@@ -19,7 +19,7 @@ import {
   getNoteById,
   updateNote,
   deleteNote,
-  // getSubjectsAll,
+  getSubjectsAll,
 } from "../../../../../lib/backend";
 import { usePagination, useFetchPocketbase } from "../../../../../hooks";
 import { tblNoOfItemsPerPage } from "../../../../../lib/consts";
@@ -31,12 +31,13 @@ const CrudTable = () => {
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
   const [tblFilterName, setTblFilterName] = useState("created");
   const [tblFilterOrder, setTblFilterOrder] = useState("asc");
+  const [tblFilterSubject, setTblFilterSubject] = useState("");
 
-  // const {
-  //   data: subjects,
-  //   loading: subjectsLoading,
-  //   error: subjectsError,
-  // } = useFetchPocketbase(getSubjectsAll);
+  const {
+    data: subjects,
+    loading: subjectsLoading,
+    error: subjectsError,
+  } = useFetchPocketbase(getSubjectsAll);
 
   const {
     data: viewCurrentNote,
@@ -240,6 +241,12 @@ const CrudTable = () => {
   return (
     <>
       <div className="bg-gray-50 rounded-xl p-2">
+        <div className="mx-5 mt-2 h-[5vh]">
+          <div className="flex justify-between items-center">
+            <div className="text-sm">X</div>
+            <div className="text-sm">X</div>
+          </div>
+        </div>
         <div className="overflow-x-scroll overflow-y-scroll h-[50vh]">
           <table className="table table-zebra">
             {/* head */}
