@@ -6,6 +6,8 @@ import {
   Person,
   PersonAdd,
   PersonCircle,
+  Stickies,
+  Book,
 } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 
@@ -99,6 +101,27 @@ const Layout = ({ locationBreadcrumbs, pageTitle, children }) => {
                       Teachers
                     </NavLink>
                   </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <details open>
+                <summary>
+                  <Book className="text-md" /> Notes
+                </summary>
+                <ul>
+                  <li>
+                    <NavLink to={"/admin/notes/all"}>
+                      <Stickies className="text-md" />
+                      All
+                    </NavLink>
+                  </li>
+                  {/* <li>
+                    <NavLink to={"/admin/users/students/new"}>
+                      <PersonAdd className="text-md" />
+                      Edit
+                    </NavLink>
+                  </li> */}
                 </ul>
               </details>
             </li>

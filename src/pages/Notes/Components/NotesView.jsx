@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { user, getNote } from "../../../lib/backend";
+import { user, getNoteByResourceName } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
 import { urlSidebar } from "../../../lib/consts";
 import { useFetchJson } from "../../../hooks";
@@ -26,7 +26,7 @@ const NotesView = ({ postFix }) => {
         setIsLoadingNote(true);
         setErrorNote(null);
 
-        const note = await getNote(selectedResource);
+        const note = await getNoteByResourceName(selectedResource);
         setPageContent(note);
       } catch (error) {
         let eMsg;

@@ -36,10 +36,14 @@ export async function getSubject(subject) {
     .getFirstListItem(`subject="${subject}"`);
 }
 
-export async function getNote(resourceName) {
+export async function getNoteByResourceName(resourceName) {
   return await pb
     .collection("class_notes_notes")
     .getFirstListItem(`resourceName="${resourceName}"`);
+}
+
+export async function getNoteById(nodeId) {
+  return await pb.collection("class_notes_notes").getFirstListItem(nodeId);
 }
 
 export async function getUsersPaginated(
@@ -126,6 +130,23 @@ export async function createUser(
 
 export async function getSubjectsAll() {
   return await pb.collection("class_notes_subjects").getFullList();
+}
+
+export async function getNotesPaginated(
+  pageNo,
+  itemsPerPage,
+  tblFilterName = "created",
+  tblFilterOrder = "asc"
+) {
+  return await pb
+    .collection("class_notes_notes")
+    .getList(pageNo, itemsPerPage, {
+      sort: `${tblFilterOrder === "asc" ? "+" : "-"}${tblFilterName}`,
+    });
+}
+
+export async function deleteNote(nodeId) {
+  return await pb.collection("class_notes_notes").delete(nodeId);
 }
 
 /* 

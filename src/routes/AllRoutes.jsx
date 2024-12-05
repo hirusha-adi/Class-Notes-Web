@@ -14,6 +14,8 @@ import {
   AdminUsersStudentsAll,
   AdminUsersStudentsNew,
   AdminUsersTeachers,
+  AdminNotesAll,
+  AdminNotesEdit,
 
   // Others
   PageNotFound,
@@ -105,6 +107,27 @@ const AllRoutes = () => {
           element={
             isUserLoggedIn && isTeacher ? (
               <AdminUsersTeachers />
+            ) : (
+              <Navigate to="/404" />
+            )
+          }
+        />
+        {/* Notes */}
+        <Route
+          path="/admin/notes/all"
+          element={
+            isUserLoggedIn && isTeacher ? (
+              <AdminNotesAll />
+            ) : (
+              <Navigate to="/404" />
+            )
+          }
+        />
+        <Route
+          path="/admin/notes/edit/:id"
+          element={
+            isUserLoggedIn && isTeacher ? (
+              <AdminNotesEdit />
             ) : (
               <Navigate to="/404" />
             )
