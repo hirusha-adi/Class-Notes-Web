@@ -31,13 +31,10 @@ const CrudTable = () => {
   const [tblConfItemsPerSettings, setTblConfItemsPerSettings] = useState(20);
   const [tblFilterName, setTblFilterName] = useState("created");
   const [tblFilterOrder, setTblFilterOrder] = useState("asc");
-  const [tblFilterSubject, setTblFilterSubject] = useState("");
+  const [tblFilterSubjectName, setTblFilterSubjectName] = useState("all");
+  const [tblFilterSubjectType, setTblFilterSubjectType] = useState("all");
 
-  const {
-    data: subjects,
-    loading: subjectsLoading,
-    error: subjectsError,
-  } = useFetchPocketbase(getSubjectsAll);
+  const { data: subjects } = useFetchPocketbase(getSubjectsAll);
 
   const {
     data: viewCurrentNote,
@@ -243,8 +240,48 @@ const CrudTable = () => {
       <div className="bg-gray-50 rounded-xl p-2">
         <div className="mx-5 mt-2 h-[5vh]">
           <div className="flex justify-between items-center">
-            <div className="text-sm">X</div>
-            <div className="text-sm">X</div>
+            <div className="text-sm flex items-center">
+              <label htmlFor="tblFilterSubject" className="mr-2 font-medium">
+                Syllabus name:
+              </label>
+              <select
+                name="tblFilterSubject"
+                id="tblFilterSubject"
+                value={tblFilterSubjectName}
+                onChange={(event) =>
+                  setTblFilterSubjectName(event.target.value)
+                }
+                className="select select-bordered text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md select-sm"
+              >
+                <option value="" disabled>
+                  Select a subject
+                </option>
+                <option value="all">All</option>
+                {subjects?.map((subject) => (
+                  <option key={subject.id} value={subject.subject}>
+                    {subject.subject}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="text-sm flex items-center">
+              <label htmlFor="tblFilterSubject" className="mr-2 font-medium">
+                Notes type:
+              </label>
+              <select
+                name="tblFilterSubject"
+                id="tblFilterSubject"
+                value={tblFilterSubjectType}
+                onChange={(event) =>
+                  setTblFilterSubjectType(event.target.value)
+                }
+                className="select select-bordered text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md select-sm"
+              >
+                <option value="all">All</option>
+                <option value="TH">Theory</option>
+                <option value="RE">Revision</option>
+              </select>
+            </div>
           </div>
         </div>
         <div className="overflow-x-scroll overflow-y-scroll h-[50vh]">
