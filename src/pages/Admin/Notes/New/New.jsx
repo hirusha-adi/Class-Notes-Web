@@ -1,9 +1,9 @@
 import { Layout } from "../../components/Layout";
 
-const Edit = () => {
+const New = () => {
   return (
     <>
-      <Layout pageTitle={"Edit Notes"} locationBreadcrumbs={["Notes", "Edit"]}>
+      <Layout pageTitle={"Edit Notes"} locationBreadcrumbs={["Notes", "New"]}>
         <div className="mx-2 mt-3">
           {/* stuff */}
           XXXXXXXXXXXXX
@@ -13,4 +13,4 @@ const Edit = () => {
   );
 };
 
-export { Edit };
+export { New };

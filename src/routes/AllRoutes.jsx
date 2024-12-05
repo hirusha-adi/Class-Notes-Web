@@ -15,7 +15,7 @@ import {
   AdminUsersStudentsNew,
   AdminUsersTeachers,
   AdminNotesAll,
-  AdminNotesEdit,
+  AdminNotesNew,
 
   // Others
   PageNotFound,
@@ -124,10 +124,10 @@ const AllRoutes = () => {
           }
         />
         <Route
-          path="/admin/notes/edit/:id"
+          path="/admin/notes/new"
           element={
             isUserLoggedIn && isTeacher ? (
-              <AdminNotesEdit />
+              <AdminNotesNew />
             ) : (
               <Navigate to="/404" />
             )

@@ -8,6 +8,7 @@ import {
   PersonCircle,
   Stickies,
   Book,
+  JournalPlus,
 } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 
@@ -116,12 +117,12 @@ const Layout = ({ locationBreadcrumbs, pageTitle, children }) => {
                       All
                     </NavLink>
                   </li>
-                  {/* <li>
-                    <NavLink to={"/admin/users/students/new"}>
-                      <PersonAdd className="text-md" />
-                      Edit
+                  <li>
+                    <NavLink to={"/admin/notes/new"}>
+                      <JournalPlus className="text-md" />
+                      New
                     </NavLink>
-                  </li> */}
+                  </li>
                 </ul>
               </details>
             </li>
