@@ -88,6 +88,42 @@ export async function updateUser(
   });
 }
 
+export async function createUser(
+  name,
+  email,
+  password,
+  age,
+  subject,
+  examSeries,
+  verified,
+  isTeacher
+) {
+  // create a username from the name
+  const parts = name.trim().split(/\s+/);
+  let username;
+  if (parts.length === 1) {
+    username = parts[0];
+  } else if (parts.length >= 2) {
+    username = `${parts[0].toLowerCase()}.${parts[1]
+      .slice(0, 3)
+      .toLowerCase()}`;
+  }
+
+  return await pb.collection("class_notes_users").create({
+    username: username,
+    email: email,
+    emailVisibility: true,
+    password: password,
+    passwordConfirm: password,
+    name: name,
+    age: age,
+    subject: subject,
+    examSeries: examSeries,
+    verified: verified,
+    isTeacher: isTeacher,
+  });
+}
+
 export async function getSubjectsAll() {
   return await pb.collection("class_notes_subjects").getFullList();
 }

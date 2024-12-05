@@ -1,4 +1,5 @@
 import { Layout } from "../../../components/Layout";
+import { NewUserForm } from "./components/NewUserForm";
 
 const New = () => {
   return (
@@ -7,7 +8,9 @@ const New = () => {
         pageTitle={"New Students"}
         locationBreadcrumbs={["Users", "Students", "New"]}
       >
-        <div className="m-12">Stuff</div>
+        <div className="mx-2 mt-3">
+          <NewUserForm />
+        </div>
       </Layout>
     </>
   );
