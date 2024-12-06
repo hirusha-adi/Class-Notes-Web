@@ -60,6 +60,14 @@ export async function updateNote(noteId, newResourceName, newUrl, newNote) {
   });
 }
 
+export async function createNote(resourceName, url, note) {
+  return await pb.collection("class_notes_notes").create({
+    resourceName: resourceName,
+    url: url,
+    note: note,
+  });
+}
+
 export async function getUsersPaginated(
   pageNo,
   itemsPerPage,

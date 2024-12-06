@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { CloudUpload, XCircle } from "react-bootstrap-icons";
 
 import { createUser } from "../../../../../../lib/backend";
 
@@ -13,6 +14,18 @@ const NewUserForm = () => {
     examSeries: "",
     verified: false,
   });
+
+  const clearFormData = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      age: "",
+      subject: "",
+      examSeries: "",
+      verified: false,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -192,9 +205,17 @@ const NewUserForm = () => {
         </div>
       </div>
 
-      <button type="submit" className="btn btn-primary w-full mt-6">
-        Submit
-      </button>
+      <div className="grid grid-cols-4 gap-2 mt-6">
+        <button type="submit" className="btn btn-primary w-full col-span-3">
+          <CloudUpload className="text-md mr-2" /> Submit
+        </button>
+        <div
+          className="btn btn-error w-full text-white col-span-1"
+          onClick={clearFormData}
+        >
+          <XCircle className="text-md mr-2" /> Clear
+        </div>
+      </div>
     </form>
   );
 };
