@@ -102,6 +102,12 @@ export async function getUserByEmail(email) {
     .getFirstListItem(`email="${email}"`);
 }
 
+export async function getUserByPhone(phone) {
+  return await pb
+    .collection("class_notes_users")
+    .getFirstListItem(`phone="${phone}"`);
+}
+
 export async function deleteUser(userId) {
   return await pb.collection("class_notes_users").delete(userId);
 }
