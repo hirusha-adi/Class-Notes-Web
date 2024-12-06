@@ -16,6 +16,7 @@ import {
   AdminUsersTeachers,
   AdminNotesAll,
   AdminNotesNew,
+  AdminNotesAccess,
 
   // Others
   PageNotFound,
@@ -47,7 +48,6 @@ const AllRoutes = () => {
             )
           }
         />
-
         {/* Auth */}
         {/* ------------------------- */}
         <Route
@@ -57,7 +57,6 @@ const AllRoutes = () => {
           }
         />
         {/* ------------------------- */}
-
         {/* Admin Pages */}
         {/* ------------------------- */}
         {/* Statistics (default page after login) */}
@@ -133,9 +132,18 @@ const AllRoutes = () => {
             )
           }
         />
+        <Route
+          path="/admin/notes/access"
+          element={
+            isUserLoggedIn && isTeacher ? (
+              <AdminNotesAccess />
+            ) : (
+              <Navigate to="/404" />
+            )
+          }
+        />
 
         {/* ------------------------- */}
-
         {/* Errors */}
         {/* ------------------------- */}
         <Route path="*" element={<Navigate to="/404" />} />

@@ -9,6 +9,7 @@ import {
   Stickies,
   Book,
   JournalPlus,
+  Gear,
 } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 
@@ -121,6 +122,12 @@ const Layout = ({ locationBreadcrumbs, pageTitle, children }) => {
                     <NavLink to={"/admin/notes/new"}>
                       <JournalPlus className="text-md" />
                       New
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={"/admin/notes/access"}>
+                      <Gear className="text-md" />
+                      Access Control
                     </NavLink>
                   </li>
                 </ul>

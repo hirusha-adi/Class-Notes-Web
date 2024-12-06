@@ -16,6 +16,7 @@ export { Teachers as AdminUsersTeachers } from "./Admin/Users/Teachers";
 // (notes)
 export { All as AdminNotesAll } from "./Admin/Notes/All/All";
 export { New as AdminNotesNew } from "./Admin/Notes/New/New";
+export { Access as AdminNotesAccess } from "./Admin/Notes/Access/Access";
 
 // others
 export { PageNotFound } from "./PageNotFound";
