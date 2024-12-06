@@ -6,9 +6,11 @@ import {
 } from "../../../../../lib/backend";
 import { useFetchPocketbase } from "../../../../../hooks";
 import { useState } from "react";
+import { Search, XLg } from "react-bootstrap-icons";
 
 const AccessControl = () => {
   const [filterUserType, setFilterUserType] = useState("email");
+  const [filterUserValueFix, setFilterUserValueFix] = useState("");
   const [filterUserValue, setFilterUserValue] = useState("");
 
   const {
@@ -17,7 +19,7 @@ const AccessControl = () => {
     error: userError,
   } = useFetchPocketbase(
     filterUserType == "email" ? getUserByEmail : getUserByPhone,
-    "all"
+    filterUserValue
   );
 
   const {
@@ -34,10 +36,14 @@ const AccessControl = () => {
 
   const handleSubmitUser = async (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    console.log(e.target.filterUserValue.value);
   };
 
-  console.log(notes);
+  const clearUserForm = () => {
+    setFilterUserType("email");
+    setFilterUserValue("");
+  };
+
   return (
     <div>
       <div className="bg-gray-50 rounded-xl p-2">
@@ -50,9 +56,11 @@ const AccessControl = () => {
             <div>
               <input
                 type="text"
+                id="filterUserValueFix"
+                name="filterUserValueFix"
+                value={filterUserValueFix}
+                onChange={(e) => setFilterUserValueFix(e.target.value)}
                 placeholder={filterUserType == "email" ? "Email" : "Phone"}
-                value={filterUserValue}
-                onChange={(e) => setFilterUserValue(e.target.value)}
                 className="input input-bordered max-w-xs w-96"
               />
             </div>
@@ -60,8 +68,8 @@ const AccessControl = () => {
             <div>
               <div className="text flex items-center">
                 <select
-                  name="tblFilterSubject"
-                  id="tblFilterSubject"
+                  name="filterUserType"
+                  id="filterUserType"
                   value={filterUserType}
                   onChange={(event) => setFilterUserType(event.target.value)}
                   className="select select-bordered text focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
@@ -72,6 +80,20 @@ const AccessControl = () => {
                   <option value="email">Email Address</option>
                   <option value="phone">Phone Number</option>
                 </select>
+              </div>
+            </div>
+            <div>
+              <button
+                className="btn btn-success text-white mr-2 rounded-full"
+                type="submit"
+              >
+                <Search className="font-xl" />
+              </button>
+              <div
+                className="btn btn-error text-white rounded-full"
+                onClick={clearUserForm}
+              >
+                <XLg className="font-xl" />
               </div>
             </div>
           </form>
