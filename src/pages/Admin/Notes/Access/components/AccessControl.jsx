@@ -46,25 +46,25 @@ const AccessControl = () => {
             onSubmit={handleSubmitUser}
             className="flex flex-row gap-4 items-center"
           >
-            <label className="font-medium text-sm">Search for</label>
+            <label className="font-medium text">Search for</label>
             <div>
               <input
                 type="text"
                 placeholder={filterUserType == "email" ? "Email" : "Phone"}
                 value={filterUserValue}
                 onChange={(e) => setFilterUserValue(e.target.value)}
-                className="input input-bordered w-full max-w-xs input-sm"
+                className="input input-bordered max-w-xs w-96"
               />
             </div>
-            <label className="font-medium text-sm">by</label>
+            <label className="font-medium text">by</label>
             <div>
-              <div className="text-sm flex items-center">
+              <div className="text flex items-center">
                 <select
                   name="tblFilterSubject"
                   id="tblFilterSubject"
                   value={filterUserType}
                   onChange={(event) => setFilterUserType(event.target.value)}
-                  className="select select-bordered text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md select-sm"
+                  className="select select-bordered text focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
                 >
                   <option value="" disabled>
                     Select a subject
