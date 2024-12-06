@@ -96,6 +96,12 @@ export async function getUser(userId) {
     .getFirstListItem(`id="${userId}"`);
 }
 
+export async function getUserByEmail(email) {
+  return await pb
+    .collection("class_notes_users")
+    .getFirstListItem(`email="${email}"`);
+}
+
 export async function deleteUser(userId) {
   return await pb.collection("class_notes_users").delete(userId);
 }

@@ -1,8 +1,28 @@
-import { getNotesIdAndResourceNames } from "../../../../../lib/backend";
+import {
+  getSubject,
+  getUserByEmail,
+  getNotesIdAndResourceNames,
+} from "../../../../../lib/backend";
 import { useFetchPocketbase } from "../../../../../hooks";
 
 const AccessControl = () => {
-  const { data: notes } = useFetchPocketbase(getNotesIdAndResourceNames);
+  const {
+    data: user,
+    loading: userIsLoading,
+    error: userError,
+  } = useFetchPocketbase(getUserByEmail, "all");
+
+  const {
+    data: subjects,
+    loading: subjectsIsLoading,
+    error: subjectsError,
+  } = useFetchPocketbase(getSubject, "cie_ol_cs");
+
+  const {
+    data: notes,
+    loading: notesIsLoading,
+    error: notesError,
+  } = useFetchPocketbase(getNotesIdAndResourceNames);
 
   console.log(notes);
   return (
