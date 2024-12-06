@@ -4,7 +4,7 @@ import { NotesEditor } from "./components/NotesEditor";
 const New = () => {
   return (
     <>
-      <Layout pageTitle={"Edit Notes"} locationBreadcrumbs={["Notes", "New"]}>
+      <Layout pageTitle={"New Notes"} locationBreadcrumbs={["Notes", "New"]}>
         <div className="mx-2 mt-3">
           {/* stuff */}
           <NotesEditor />
