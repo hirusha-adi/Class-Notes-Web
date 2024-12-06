@@ -18,7 +18,7 @@ const NotesView = ({ postFix }) => {
     rawContent: jsonData,
     isLoadingSidebar,
     errorSidebar,
-  } = useFetchJson(`${urlSidebar}${user.record?.subject}-${postFix}.json`);
+  } = useFetchJson(`${urlSidebar}${user.record?.subject}_${postFix}.json`);
 
   useEffect(() => {
     const fetchNote = async () => {

@@ -12,7 +12,7 @@ const Notes = ({ noteType }) => {
     <>
       <NotesView
         fileName={noteType}
-        postFix={noteType === "theory" ? "TH" : "RE"}
+        postFix={noteType === "theory" ? "th" : "re"}
       />
     </>
   );
