@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import { CloudUpload, XCircle } from "react-bootstrap-icons";
 
 import { createUser } from "../../../../../../lib/backend";
+import { useFetchPocketbase } from "../../../../../../hooks";
+import { getSubjectsAll } from "../../../../../../lib/backend";
 
 const NewUserForm = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,8 @@ const NewUserForm = () => {
     examSeries: "",
     verified: false,
   });
+
+  const { data: subjects } = useFetchPocketbase(getSubjectsAll);
 
   const clearFormData = () => {
     setFormData({
@@ -165,14 +169,22 @@ const NewUserForm = () => {
           <label className="label">
             <span className="label-text">Subject</span>
           </label>
-          <input
-            type="text"
+          <select
             name="subject"
-            className="input input-bordered"
+            id="subject"
             value={formData.subject}
             onChange={handleChange}
-            required
-          />
+            className="select select-bordered text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
+          >
+            <option value="" disabled>
+              Select a subject
+            </option>
+            {subjects?.map((subject) => (
+              <option key={subject.id} value={subject.subject}>
+                {subject.subject}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Exam Series */}
