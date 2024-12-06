@@ -83,7 +83,7 @@ const NewUserForm = () => {
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl font-bold text-center mb-6">
-        Create New Student
+        Create new student
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

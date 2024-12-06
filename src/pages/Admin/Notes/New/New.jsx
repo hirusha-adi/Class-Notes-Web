@@ -1,4 +1,5 @@
 import { Layout } from "../../components/Layout";
+import { NotesEditor } from "./components/NotesEditor";
 
 const New = () => {
   return (
@@ -6,7 +7,7 @@ const New = () => {
       <Layout pageTitle={"Edit Notes"} locationBreadcrumbs={["Notes", "New"]}>
         <div className="mx-2 mt-3">
           {/* stuff */}
-          XXXXXXXXXXXXX
+          <NotesEditor />
         </div>
       </Layout>
     </>
