@@ -71,6 +71,7 @@ const NotesEditor = () => {
           <h2 className="text-2xl font-bold text-center mb-6">
             Create new note
           </h2>
+
           {/* Resource Name */}
           <div className="form-control">
             <label className="label">
@@ -86,6 +87,7 @@ const NotesEditor = () => {
               required
             />
           </div>
+
           {/* URL */}
           <div className="form-control">
             <label className="label">
@@ -101,6 +103,7 @@ const NotesEditor = () => {
               required
             />
           </div>
+
           {/* Note */}
           <div className="form-control">
             <label className="label">
@@ -115,6 +118,7 @@ const NotesEditor = () => {
               required
             />
           </div>
+
           <div className="grid grid-cols-4 gap-2 mt-6">
             <button type="submit" className="btn btn-primary w-full col-span-3">
               <CloudUpload className="text-md mr-2" /> Submit
