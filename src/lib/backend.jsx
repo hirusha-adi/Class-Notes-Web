@@ -48,6 +48,12 @@ export async function getNoteById(noteId) {
     .getFirstListItem(`id="${noteId}"`);
 }
 
+export async function getNotesIdAndResourceNames() {
+  return await pb.collection("class_notes_notes").getFullList({
+    fields: `id,resourceName`,
+  });
+}
+
 export async function deleteNote(noteId) {
   return await pb.collection("class_notes_notes").delete(noteId);
 }
