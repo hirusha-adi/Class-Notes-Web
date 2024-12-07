@@ -248,7 +248,6 @@ class_notes_subjects (base)
       name (text)
       code (text)
       host (text)
-      menuJson (text)
 
 class_notes_notes (base)
   feilds

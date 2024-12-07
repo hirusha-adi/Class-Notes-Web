@@ -26,7 +26,7 @@ const AccessControl = () => {
     data: subjects,
     loading: subjectsIsLoading,
     error: subjectsError,
-  } = useFetchPocketbase(getSubject, "cie_ol_cs");
+  } = useFetchPocketbase(getSubject, user?.subject);
 
   const {
     data: notes,
@@ -36,18 +36,23 @@ const AccessControl = () => {
 
   const handleSubmitUser = async (e) => {
     e.preventDefault();
-    console.log(e.target.filterUserValue.value);
+    setFilterUserValue(filterUserValueFix);
+    console.log(filterUserValue, filterUserValueFix);
   };
 
   const clearUserForm = () => {
     setFilterUserType("email");
     setFilterUserValue("");
+    setFilterUserValueFix("");
   };
+
+  console.log(user);
+  console.log(subjects);
 
   return (
     <div>
       <div className="bg-gray-50 rounded-xl p-2">
-        <div className="flex justify-center h-[5vh]">
+        <div className="flex justify-center items-center pt-2 pb-5 border-b">
           <form
             onSubmit={handleSubmitUser}
             className="flex flex-row gap-4 items-center"
@@ -97,6 +102,11 @@ const AccessControl = () => {
               </div>
             </div>
           </form>
+        </div>
+        <div className="flex justify-center items-center h-[5vh]">
+          <div className="text-center">
+            {`User: ${user?.name} (${user?.email} / ${user?.phone}) will take ${user?.subject} (${subjects?.host} - ${subjects?.name} - ${subjects?.code}) on ${user?.examSeries}`}
+          </div>
         </div>
       </div>
     </div>
