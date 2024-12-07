@@ -1,6 +1,6 @@
 # Inital Server Setup
 
-Buy a VPS, install Ubuntu 24.04. Setup to access via your private key. Everything is assuming the username of our user is `ubuntu` 
+Buy a VPS, install Ubuntu 24.04. Setup to access via your private key. Everything is assuming the username of our user is `ubuntu`
 
 ```bash
 # init
@@ -95,7 +95,6 @@ alias pbdis="systemctl disable pocketbasedev && systemctl disable pocketbaseprod
 
 Caddyfile
 
-
 ```caddyfile
 db.hirusha.xyz {
     handle_path /prod/* {
@@ -105,6 +104,62 @@ db.hirusha.xyz {
     handle_path /dev/* {
         reverse_proxy localhost:3011
     }
+}
+
+portainer.hirusha.xyz {
+    reverse_proxy localhost:9000
+}
+```
+
+# New config: Works!
+
+```bash
+# init
+sudo apt update && sudo apt upgrade -y
+sudo apt install wget curl python3-pip docker-compose -y
+
+# docker and portainer
+docker volume create portainer_data
+docker run -d   -p 127.0.0.1:8000:8000   -p 127.0.0.1:9000:9000   --name portainer   --restart=always   -v /var/run/docker.sock:/var/run/docker.sock   -v portainer_data:/data   portainer/portainer-ce:latest # note that at port 9000 is the web ui
+
+# caddy
+apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+apt update
+apt install caddy
+
+mkdir -p /home/ubuntu/apps/class-notes/pb # pb stuff inside here
+
+```
+
+- docker-compose.yml for pb
+
+```yaml
+version: "3.7"
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: pocketbase
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3010:8090"
+    volumes:
+      - /home/ubuntu/apps/class-notes/pb/pb_data:/pb_data
+      - /home/ubuntu/apps/class-notes/pb/pb_public:/pb_public # optional
+      - /home/ubuntu/apps/class-notes/pb/pb_hooks:/pb_hooks # optional
+    healthcheck: # optional, recommended since v0.10.0
+      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
+```
+
+- Caddyfile
+
+```
+db.class.hirusha.xyz {
+    reverse_proxy localhost:3010
 }
 
 portainer.hirusha.xyz {
