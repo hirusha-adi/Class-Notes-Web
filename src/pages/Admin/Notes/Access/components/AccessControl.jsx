@@ -7,11 +7,13 @@ import {
 import { useFetchPocketbase } from "../../../../../hooks";
 import { useState } from "react";
 import { Search, XLg } from "react-bootstrap-icons";
+import { Book, LightningCharge } from "react-bootstrap-icons";
 
 const AccessControl = () => {
   const [filterUserType, setFilterUserType] = useState("email");
   const [filterUserValueFix, setFilterUserValueFix] = useState("");
   const [filterUserValue, setFilterUserValue] = useState("");
+  const [filterNotesType, setFilterNotesType] = useState("th");
 
   const {
     data: user,
@@ -37,7 +39,6 @@ const AccessControl = () => {
   const handleSubmitUser = async (e) => {
     e.preventDefault();
     setFilterUserValue(filterUserValueFix);
-    console.log(filterUserValue, filterUserValueFix);
   };
 
   const clearUserForm = () => {
@@ -103,11 +104,48 @@ const AccessControl = () => {
             </div>
           </form>
         </div>
-        <div className="flex justify-center items-center h-[5vh]">
+        <div className="flex justify-center items-center h-[5vh] border-b">
           <div className="text-center">
-            {`User: ${user?.name} (${user?.email} / ${user?.phone}) will take ${user?.subject} (${subjects?.host} - ${subjects?.name} - ${subjects?.code}) on ${user?.examSeries}`}
+            {userIsLoading || subjectsIsLoading ? (
+              <>Please select a user!</>
+            ) : userError || subjectsError ? (
+              <>No results for current query</>
+            ) : user && subjects ? (
+              <>
+                User: {user?.name} ({user?.email} / {user?.phone}) will take{" "}
+                <div className="inline-block font-bold underline">
+                  {user?.subject}
+                </div>{" "}
+                ({subjects?.host} - {subjects?.name} - {subjects?.code}) on{" "}
+                {user?.examSeries}
+              </>
+            ) : (
+              <>Please select a user!</>
+            )}
           </div>
         </div>
+        {subjects && (
+          <div className="flex justify-center items-center h-[5vh]">
+            <div className="join">
+              <div
+                className={`btn join-item ${
+                  filterNotesType == "th" ? "active" : ""
+                }`}
+                onClick={() => setFilterNotesType("th")}
+              >
+                <Book className="text-lg " /> Theory Notes
+              </div>
+              <div
+                className={`btn join-item ${
+                  filterNotesType == "re" ? "active" : ""
+                }`}
+                onClick={() => setFilterNotesType("re")}
+              >
+                <LightningCharge className="text-lg" /> Revision Notes
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
