@@ -31,6 +31,9 @@ export async function logout() {
 }
 
 export async function getSubject(subject) {
+  if (!subject) {
+    return null;
+  }
   return await pb
     .collection("class_notes_subjects")
     .getFirstListItem(`subject="${subject}"`);
@@ -97,12 +100,18 @@ export async function getUser(userId) {
 }
 
 export async function getUserByEmail(email) {
+  if (!email) {
+    return null;
+  }
   return await pb
     .collection("class_notes_users")
     .getFirstListItem(`email="${email}"`);
 }
 
 export async function getUserByPhone(phone) {
+  if (!phone) {
+    return null;
+  }
   return await pb
     .collection("class_notes_users")
     .getFirstListItem(`phone="${phone}"`);
