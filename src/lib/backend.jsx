@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 
-const url = "http://127.0.0.1:8090";
+const url = "https://db.class.hirusha.xyz";
 
 export const pb = new PocketBase(url);
 
@@ -249,7 +249,6 @@ class_notes_subjects (base)
       code (text)
       host (text)
       menuJson (text)
-      menuJsonData (json)
 
 class_notes_notes (base)
   feilds
@@ -277,6 +276,10 @@ class_notes_accesss (base)
       userId (text)
       resourceName (text)
   rules
+    List/Serch rule
+      @request.auth.id != "" && @request.auth.id = userId
+    View rule
+      @request.auth.id != "" && @request.auth.id = userId
     All
       @request.auth.id != "" && @request.auth.isTeacher = true
 */
