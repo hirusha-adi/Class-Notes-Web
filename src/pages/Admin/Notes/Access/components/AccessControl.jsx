@@ -48,7 +48,7 @@ const AccessControl = () => {
   };
 
   console.log(user);
-  console.log(subjects);
+  // console.log(subjects);
 
   return (
     <div>
@@ -104,7 +104,7 @@ const AccessControl = () => {
             </div>
           </form>
         </div>
-        <div className="flex justify-center items-center h-[5vh] border-b">
+        <div className="flex justify-center items-center py-5 border-b">
           <div className="text-center">
             {userIsLoading || subjectsIsLoading ? (
               <>Please select a user!</>
