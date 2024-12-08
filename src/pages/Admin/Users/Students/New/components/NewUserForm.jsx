@@ -52,7 +52,6 @@ const NewUserForm = () => {
         formData.age,
         formData.subject,
         formData.examSeries,
-        formData.verified,
         false
       );
       if (success) {

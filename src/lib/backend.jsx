@@ -154,7 +154,6 @@ export async function createUser(
   age,
   subject,
   examSeries,
-  verified,
   isTeacher
 ) {
   const payload = {
