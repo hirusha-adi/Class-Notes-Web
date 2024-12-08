@@ -44,7 +44,6 @@ const NewUserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Form submitted:", formData);
       const success = await createUser(
         formData.name,
         formData.email,
@@ -67,7 +66,7 @@ const NewUserForm = () => {
             popup: "custom-swal-popup",
           },
         }).then(() => {
-          window.location.href = "/admin/users/students/all";
+          // window.location.href = "/admin/users/students/all";
         });
       } else {
         Swal.fire({
