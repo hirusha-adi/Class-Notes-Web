@@ -51,7 +51,16 @@ const AccessControl = () => {
     setFilterUserValueFix("");
   };
 
-  console.log(notes);
+  const groupedNotes = notes?.reduce((acc, item) => {
+    const chapter = item.resourceName.split("_").slice(3, 5).join("_");
+    if (!acc[chapter]) {
+      acc[chapter] = [];
+    }
+    acc[chapter].push(item);
+    return acc;
+  }, {});
+
+  console.log(groupedNotes);
   // console.log(subjects);
 
   return (
@@ -152,18 +161,28 @@ const AccessControl = () => {
         )}
         {notes && (
           <div className="">
-            {notes?.map((note) => (
-              <div key={note.id} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id={note.id}
-                  // checked={checkedItems.includes(item.id)}
-                  // onChange={() => handleCheckboxChange(item.id)}
-                  className="checkbox checkbox-primary"
-                />
-                <label htmlFor={note.id} className="text-lg">
-                  {note.resourceName}
-                </label>
+            {Object.keys(groupedNotes).map((chapter) => (
+              <div key={chapter}>
+                <div className="font-semibold text-xl">Chapter {chapter}</div>
+                <div className="space-y-4">
+                  {groupedNotes[chapter].map((item) => (
+                    <div key={item.id} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id={item.id}
+                        // checked={checkedItems.includes(item.id)}
+                        // onChange={() => handleCheckboxChange(item.id)}
+                        className="checkbox checkbox-primary"
+                      />
+                      <label htmlFor={item.id} className="text-lg">
+                        {item.resourceName}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Add a separator line after each chapter except the last one */}
+                <div className="border-t border-gray-300 mt-4"></div>
               </div>
             ))}
           </div>
