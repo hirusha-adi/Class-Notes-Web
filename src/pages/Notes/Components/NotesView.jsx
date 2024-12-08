@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { user, getNoteByResourceName } from "../../../lib/backend";
+import {
+  user,
+  // getNoteByResourceName,
+  getNoteByResourceNameWithAuth,
+} from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
 import { urlSidebar } from "../../../lib/consts";
 import { useFetchJson } from "../../../hooks";
@@ -26,7 +30,10 @@ const NotesView = ({ postFix }) => {
         setIsLoadingNote(true);
         setErrorNote(null);
 
-        const note = await getNoteByResourceName(selectedResource);
+        const note = await getNoteByResourceNameWithAuth(
+          user?.record?.id,
+          selectedResource
+        );
         setPageContent(note);
       } catch (error) {
         let eMsg;
@@ -83,18 +90,6 @@ const NotesView = ({ postFix }) => {
                   )}
                 </>
               )}
-
-              {/* {jsonData && (
-                <>
-                  <div className="menu-title text-lg text-gray-800">
-                    {jsonData.title}
-                  </div>
-                  <RecursiveMenu
-                    menu={jsonData?.menu}
-                    onItemClick={handleItemClick}
-                  />
-                </>
-              )} */}
             </ul>
           </div>
         </div>

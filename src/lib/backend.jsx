@@ -45,6 +45,24 @@ export async function getNoteByResourceName(resourceName) {
     .getFirstListItem(`resourceName="${resourceName}"`);
 }
 
+export async function getNoteByResourceNameWithAuth(userId, resourceName) {
+  if (!userId || !resourceName) {
+    return null;
+  }
+
+  const hasAccess = await pb
+    .collection("class_notes_accesss")
+    .getFirstListItem(`userId="${userId}" && resourceName="${resourceName}"`);
+
+  if (!hasAccess) {
+    return null;
+  }
+
+  return await pb
+    .collection("class_notes_notes")
+    .getFirstListItem(`resourceName="${resourceName}"`);
+}
+
 export async function getNoteById(noteId) {
   return await pb
     .collection("class_notes_notes")
