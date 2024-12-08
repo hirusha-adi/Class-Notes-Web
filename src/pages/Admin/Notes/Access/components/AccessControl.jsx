@@ -49,8 +49,8 @@ const AccessControl = () => {
 
   const {
     data: notes,
-    loading: notesIsLoading,
-    error: notesError,
+    // loading: notesIsLoading,
+    // error: notesError,
   } = useFetchPocketbase(
     getNotesIdAndResourceNames,
     user?.subject,
@@ -59,8 +59,8 @@ const AccessControl = () => {
 
   const {
     data: notesAccess,
-    loading: notesAccessIsLoading,
-    error: notesAccessError,
+    // loading: notesAccessIsLoading,
+    // error: notesAccessError,
   } = useFetchPocketbase(
     getAccessAllByUserResourceNames,
     user?.id,
