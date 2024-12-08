@@ -52,6 +52,7 @@ const NewUserForm = () => {
         formData.age,
         formData.subject,
         formData.examSeries,
+        formData.verified,
         false
       );
       if (success) {
@@ -229,8 +230,24 @@ const NewUserForm = () => {
               This will set all newly created accounts to verified state,
               By default.
             ---------------------------------------------------
+            pb/pb_hooks$ cat main.pb.js 
+            onRecordCreate((e) => {
+                // e.app
+                // e.record
+                // skip if admin
+                e.record.set("verified", true)
+                e.next()
+
+            }, "class_notes_users")
+            ---------------------------------------------------
+            FIXED IT! FUCK! Theres a special permission to manage that crap.
+              https://pocketbase.io/docs/collections/#auth-collection
+            istg i feel like taking a printout of the fucking docs 
+              and reading everything before doing this... or prolly not
+            Suck Balls. 
+            ---------------------------------------------------
         */}
-        {/* <div className="form-control pt-9">
+        <div className="form-control pt-9">
           <label className="label cursor-pointer flex justify-between items-center">
             <span className="label-text">Verified</span>
             <input
@@ -241,7 +258,7 @@ const NewUserForm = () => {
               onChange={handleChange}
             />
           </label>
-        </div> */}
+        </div>
       </div>
 
       <div className="grid grid-cols-4 gap-2 mt-6">

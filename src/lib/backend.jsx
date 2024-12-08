@@ -154,6 +154,7 @@ export async function createUser(
   age,
   subject,
   examSeries,
+  verified,
   isTeacher
 ) {
   const payload = {
@@ -161,7 +162,7 @@ export async function createUser(
     emailVisibility: true,
     password,
     passwordConfirm: password,
-    // verified: verified || false,
+    verified: verified || false,
     name,
     phone,
     age: Number(age),
