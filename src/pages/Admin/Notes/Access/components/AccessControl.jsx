@@ -60,12 +60,22 @@ const AccessControl = () => {
     return acc;
   }, {});
 
+  //  CHECK THIS OUT LATER!
+  // const [checkedItems, setCheckedItems] = useState([]);
+  // const handleCheckboxChange = (id) => {
+  //   setCheckedItems((prevCheckedItems) =>
+  //     prevCheckedItems.includes(id)
+  //       ? prevCheckedItems.filter((item) => item !== id)
+  //       : [...prevCheckedItems, id]
+  //   );
+  // };
+
   console.log(groupedNotes);
   // console.log(subjects);
 
   return (
     <div>
-      <div className="bg-gray-50 rounded-xl p-2">
+      <div className="bg-gray-50 rounded-xl p-2 mb-14">
         <div className="flex justify-center items-center pt-2 pb-5 border-b">
           <form
             onSubmit={handleSubmitUser}
@@ -160,7 +170,7 @@ const AccessControl = () => {
           </div>
         )}
         {notes && (
-          <div className="">
+          <div className="py-5 h-[55vh] overflow-y-scroll">
             {Object.keys(groupedNotes).map((chapter) => (
               <div key={chapter}>
                 <div className="font-semibold text-xl">Chapter {chapter}</div>
@@ -175,7 +185,7 @@ const AccessControl = () => {
                         className="checkbox checkbox-primary"
                       />
                       <label htmlFor={item.id} className="text-lg">
-                        {item.resourceName}
+                        {item.resourceName} ({item.id})
                       </label>
                     </div>
                   ))}
