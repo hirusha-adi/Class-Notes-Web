@@ -51,8 +51,9 @@ export async function getNoteById(noteId) {
     .getFirstListItem(`id="${noteId}"`);
 }
 
-export async function getNotesIdAndResourceNames() {
+export async function getNotesIdAndResourceNames(subjectName, subjectType) {
   return await pb.collection("class_notes_notes").getFullList({
+    filter: `resourceName~"${subjectName}_${subjectType}_"`,
     fields: `id,resourceName`,
   });
 }

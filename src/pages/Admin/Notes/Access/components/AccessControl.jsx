@@ -34,7 +34,11 @@ const AccessControl = () => {
     data: notes,
     loading: notesIsLoading,
     error: notesError,
-  } = useFetchPocketbase(getNotesIdAndResourceNames);
+  } = useFetchPocketbase(
+    getNotesIdAndResourceNames,
+    user?.subject,
+    filterNotesType
+  );
 
   const handleSubmitUser = async (e) => {
     e.preventDefault();
@@ -47,7 +51,7 @@ const AccessControl = () => {
     setFilterUserValueFix("");
   };
 
-  console.log(user);
+  console.log(notes);
   // console.log(subjects);
 
   return (
@@ -125,7 +129,7 @@ const AccessControl = () => {
           </div>
         </div>
         {subjects && (
-          <div className="flex justify-center items-center h-[5vh]">
+          <div className="flex justify-center items-center py-5 border-b">
             <div className="join">
               <div
                 className={`btn join-item ${
