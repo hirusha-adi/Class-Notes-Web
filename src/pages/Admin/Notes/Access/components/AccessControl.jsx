@@ -150,6 +150,24 @@ const AccessControl = () => {
             </div>
           </div>
         )}
+        {notes && (
+          <div className="">
+            {notes?.map((note) => (
+              <div key={note.id} className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id={note.id}
+                  // checked={checkedItems.includes(item.id)}
+                  // onChange={() => handleCheckboxChange(item.id)}
+                  className="checkbox checkbox-primary"
+                />
+                <label htmlFor={note.id} className="text-lg">
+                  {note.resourceName}
+                </label>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
