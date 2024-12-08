@@ -19,13 +19,10 @@ const MarkdownWithImageZoom = ({ content }) => {
 
         img.addEventListener("click", () => {
           MySwal.fire({
-            html: `<img src="${img.src}" alt="${img.alt}" style="w-full w-[60%]" />`,
+            html: `<div class="flex items-center justify-center"><img src="${img.src}" alt="${img.alt}" /></div>`,
             showCloseButton: true,
             showConfirmButton: false,
-            customClass: {
-              popup: "swal2-fullscreen",
-            },
-            backdrop: "rgba(0, 0, 0, 0.9)", // Full-screen backdrop
+            customClass: "custom-swal-popup-image",
           });
         });
       }
