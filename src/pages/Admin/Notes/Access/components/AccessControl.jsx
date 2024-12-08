@@ -100,7 +100,6 @@ const AccessControl = () => {
   const handleCheckboxChange = useCallback(
     async (note) => {
       const noteAccessed = isNoteAccessed(note);
-      console.log(noteAccessed);
 
       try {
         if (noteAccessed) {
@@ -121,8 +120,8 @@ const AccessControl = () => {
     [user?.id, createAccess, deleteAccess, notesAccess, setNotesAccessReload]
   );
 
-  console.log(notes);
-  console.log(notesAccess);
+  // console.log(notes);
+  // console.log(notesAccess);
   // console.log(subjects);
 
   return (
