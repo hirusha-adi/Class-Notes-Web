@@ -31,9 +31,6 @@ const AccessControl = () => {
   const [filterUserValue, setFilterUserValue] = useState("");
   const [filterNotesType, setFilterNotesType] = useState("th");
   const [notesAccessReload, setNotesAccessReload] = useState(false);
-  const [currentLogMsgBottom, setCurrentLogMsgBottom] = useState(
-    "Page loaded successfully!"
-  );
 
   const {
     data: user,
@@ -78,8 +75,7 @@ const AccessControl = () => {
   };
 
   const clearUserForm = () => {
-    toast.info("Cleared everything!", toastConfig);
-    setCurrentLogMsgBottom("Cleared form!");
+    toast.info("Cleared the form!", toastConfig);
     setFilterUserType("email");
     setFilterUserValue("");
     setFilterUserValueFix("");
@@ -124,7 +120,6 @@ const AccessControl = () => {
       } catch (err) {
         console.error("Error toggling access:", err);
         toast.error(`Access granted for: ${note.resourceName}`, toastConfig);
-        setCurrentLogMsgBottom("Failed to update access. Please try again.");
       }
     },
     [user?.id, createAccess, deleteAccess, notesAccess, setNotesAccessReload]
@@ -264,13 +259,6 @@ const AccessControl = () => {
               ))}
             </div>
           </>
-        )}
-        {user && (
-          <div className="flex justify-between items-center py-5 px-5">
-            <div className="w-full italic text-lg">
-              Message: {currentLogMsgBottom}
-            </div>
-          </div>
         )}
       </div>
       <ToastContainer
