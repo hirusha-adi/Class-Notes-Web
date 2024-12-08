@@ -11,6 +11,7 @@ import {
 import { RecursiveMenu } from "./RecursiveMenu";
 import { urlSidebar } from "../../../lib/consts";
 import { useFetchJson } from "../../../hooks";
+import { MarkdownWithImageZoom } from "./MarkdownWithImageZoom";
 
 const NotesView = ({ postFix }) => {
   const [selectedResource, setSelectedResource] = useState("intro");
@@ -112,9 +113,7 @@ const NotesView = ({ postFix }) => {
                 </>
               ) : (
                 <div className="prose min-w-full max-w-full w-full h-[80vh] overflow-y-scroll">
-                  <Markdown remarkPlugins={[remarkGfm]}>
-                    {pageContent?.note}
-                  </Markdown>
+                  <MarkdownWithImageZoom content={pageContent?.note} />
                 </div>
               )}
             </>
