@@ -149,6 +149,7 @@ export async function updateUser(
 export async function createUser(
   name,
   email,
+  phone,
   password,
   age,
   subject,
@@ -156,30 +157,31 @@ export async function createUser(
   verified,
   isTeacher
 ) {
-  // create a username from the name
-  const parts = name.trim().split(/\s+/);
-  let username;
-  if (parts.length === 1) {
-    username = parts[0];
-  } else if (parts.length >= 2) {
-    username = `${parts[0].toLowerCase()}.${parts[1]
-      .slice(0, 3)
-      .toLowerCase()}`;
-  }
-
-  return await pb.collection("class_notes_users").create({
-    username: username,
-    email: email,
+  const payload = {
+    email,
     emailVisibility: true,
-    password: password,
+    password,
     passwordConfirm: password,
-    name: name,
-    age: age,
-    subject: subject,
-    examSeries: examSeries,
-    verified: verified,
-    isTeacher: isTeacher,
-  });
+    // verified: verified || false,
+    name,
+    phone,
+    age: Number(age),
+    subject,
+    examSeries,
+    isTeacher: Boolean(isTeacher),
+  };
+
+  console.log("Payload:", payload);
+
+  try {
+    const record = await pb.collection("class_notes_users").create(payload);
+    console.log("Record created:", record);
+
+    return record;
+  } catch (error) {
+    console.error("Error creating user:", error.response || error.message);
+    throw error; // Re-throw to allow further handling
+  }
 }
 
 export async function getSubjectsAll() {
@@ -271,12 +273,13 @@ class_notes_users (auth)
       id
       created
       updated
-      uername
+      username
       email
       emailVisibility
       verified
     custom
       name (text)
+      phone (text)
       age (number)
       subject (text)
       examSeries (text)
