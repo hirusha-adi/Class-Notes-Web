@@ -23,6 +23,9 @@ const AccessControl = () => {
   const [filterUserValue, setFilterUserValue] = useState("");
   const [filterNotesType, setFilterNotesType] = useState("th");
   const [notesAccessReload, setNotesAccessReload] = useState(false);
+  const [currentLogMsgBottom, setCurrentLogMsgBottom] = useState(
+    "Page loaded successfully!"
+  );
 
   const {
     data: user,
@@ -67,6 +70,7 @@ const AccessControl = () => {
   };
 
   const clearUserForm = () => {
+    setCurrentLogMsgBottom("Cleared form!");
     setFilterUserType("email");
     setFilterUserValue("");
     setFilterUserValueFix("");
@@ -80,16 +84,6 @@ const AccessControl = () => {
     acc[chapter].push(item);
     return acc;
   }, {});
-
-  //  CHECK THIS OUT LATER!
-  // const [checkedItems, setCheckedItems] = useState([]);
-  // const handleCheckboxChange = (id) => {
-  //   setCheckedItems((prevCheckedItems) =>
-  //     prevCheckedItems.includes(id)
-  //       ? prevCheckedItems.filter((item) => item !== id)
-  //       : [...prevCheckedItems, id]
-  //   );
-  // };
 
   const isNoteAccessed = (note) => {
     return notesAccess?.some(
@@ -105,16 +99,16 @@ const AccessControl = () => {
         if (noteAccessed) {
           // If already accessed, delete the access
           await deleteAccess(user?.id, note.resourceName);
-          console.log(`Access removed for: ${note.resourceName}`);
+          setCurrentLogMsgBottom(`Access removed for: ${note.resourceName}`);
         } else {
           // Otherwise, create the access
           await createAccess(user?.id, note.resourceName);
-          console.log(`Access granted for: ${note.resourceName}`);
+          setCurrentLogMsgBottom(`Access granted for: ${note.resourceName}`);
         }
         setNotesAccessReload((prev) => !prev);
       } catch (err) {
         console.error("Error toggling access:", err);
-        console.log("Failed to update access. Please try again.");
+        setCurrentLogMsgBottom("Failed to update access. Please try again.");
       }
     },
     [user?.id, createAccess, deleteAccess, notesAccess, setNotesAccessReload]
@@ -253,22 +247,14 @@ const AccessControl = () => {
                 </div>
               ))}
             </div>
-            {/* Consider removing this section later, after consider if this is required, after implementing the update feature */}
-            <div className="flex justify-between items-center py-5">
-              <div className="btn btn-ghost">
-                <Check2All className="text-lg" />
-                Check All
-              </div>
-              <div className="btn btn-success text-white">
-                <Floppy className="text-lg" />
-                Save
-              </div>
-              <div className="btn btn-ghost">
-                <XLg className="text-lg" />
-                Uncheck All
-              </div>
-            </div>
           </>
+        )}
+        {user && (
+          <div className="flex justify-between items-center py-5 px-5">
+            <div className="w-full italic text-lg">
+              Message: {currentLogMsgBottom}
+            </div>
+          </div>
         )}
       </div>
     </div>
