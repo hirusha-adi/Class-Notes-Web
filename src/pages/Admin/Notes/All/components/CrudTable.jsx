@@ -10,7 +10,6 @@ import {
   Pencil,
   Trash,
   Eye,
-  BoxArrowInUpRight,
   Markdown as MarkdownIcon,
 } from "react-bootstrap-icons";
 
@@ -105,10 +104,6 @@ const CrudTable = () => {
           <input id="resourceName" type="text" class="input input-bordered w-full" value="${currentNote.resourceName}" />
         </div>
         <div class="form-control mt-4">
-          <label class="label"><span class="label-text">URL</span></label>
-          <input id="url" type="text" class="input input-bordered w-full" value="${currentNote.url}" />
-        </div>
-        <div class="form-control mt-4">
           <label class="label"><span class="label-text">Note</span></label>
           <textarea id="note" class="textarea textarea-bordered w-full h-[40vh]">${currentNote.note}</textarea>
         </div>
@@ -124,22 +119,21 @@ const CrudTable = () => {
           const resourceName = document
             .getElementById("resourceName")
             .value.trim();
-          const url = document.getElementById("url").value.trim();
           const note = document.getElementById("note").value.trim();
 
-          if (!resourceName || !url || !note) {
+          if (!resourceName || !note) {
             Swal.showValidationMessage("All fields are required!");
             return null;
           }
-          return { resourceName, url, note };
+          return { resourceName, note };
         },
       });
 
       // If form was submitted
       if (formValues) {
-        const { resourceName, url, note } = formValues;
+        const { resourceName, note } = formValues;
 
-        const success = await updateNote(noteId, resourceName, url, note);
+        const success = await updateNote(noteId, resourceName, note);
 
         if (success) {
           Swal.fire({
@@ -299,7 +293,6 @@ const CrudTable = () => {
                     <FilterOrderArrows order={tblFilterOrder} />
                   )}
                 </th>
-                <th>Url</th>
                 <th>View</th>
                 <th onClick={() => handleFilter("created")}>
                   Created On{" "}
@@ -359,18 +352,6 @@ const CrudTable = () => {
                           </td>
                           <td>{item.id}</td>
                           <td>{item.resourceName}</td>
-                          <td>
-                            <div className="tooltip" data-tip={item.url}>
-                              <a
-                                href={item.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                Click here{" "}
-                                <BoxArrowInUpRight className="text-md inline" />
-                              </a>
-                            </div>
-                          </td>
                           <td>
                             <button
                               className="btn btn-sm inline"
@@ -439,9 +420,6 @@ const CrudTable = () => {
           <div className="w-full">
             <h3 className="font-bold text-lg inline">Title: </h3>
             <div className="inline">{viewCurrentNote?.resourceName}</div>
-            <br />
-            <h3 className="font-bold text-lg inline">URL: </h3>
-            <div className="inline">{viewCurrentNote?.url}</div>
           </div>
           <div className="py-4 h-[60vh] overflow-x-scroll overflow-y-scroll mt-5">
             {viewIsMarkdown ? (

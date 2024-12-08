@@ -65,10 +65,9 @@ export async function deleteNote(noteId) {
   return await pb.collection("class_notes_notes").delete(noteId);
 }
 
-export async function updateNote(noteId, newResourceName, newUrl, newNote) {
+export async function updateNote(noteId, newResourceName, newNote) {
   return await pb.collection("class_notes_notes").update(noteId, {
     resourceName: newResourceName,
-    url: newUrl,
     note: newNote,
   });
 }
