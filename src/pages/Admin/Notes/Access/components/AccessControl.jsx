@@ -7,7 +7,12 @@ import {
 import { useFetchPocketbase } from "../../../../../hooks";
 import { useState } from "react";
 import { Search, XLg } from "react-bootstrap-icons";
-import { Book, LightningCharge } from "react-bootstrap-icons";
+import {
+  Book,
+  LightningCharge,
+  Check2All,
+  Floppy,
+} from "react-bootstrap-icons";
 
 const AccessControl = () => {
   const [filterUserType, setFilterUserType] = useState("email");
@@ -170,32 +175,54 @@ const AccessControl = () => {
           </div>
         )}
         {notes && (
-          <div className="py-5 h-[55vh] overflow-y-scroll">
-            {Object.keys(groupedNotes).map((chapter) => (
-              <div key={chapter}>
-                <div className="font-semibold text-xl">Chapter {chapter}</div>
-                <div className="space-y-4">
-                  {groupedNotes[chapter].map((item) => (
-                    <div key={item.id} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id={item.id}
-                        // checked={checkedItems.includes(item.id)}
-                        // onChange={() => handleCheckboxChange(item.id)}
-                        className="checkbox checkbox-primary"
-                      />
-                      <label htmlFor={item.id} className="text-lg">
-                        {item.resourceName} ({item.id})
-                      </label>
-                    </div>
-                  ))}
-                </div>
+          <>
+            <div className="py-5 h-[55vh] overflow-y-scroll border-b">
+              {Object.keys(groupedNotes).map((chapter) => (
+                <div key={chapter}>
+                  <div className="font-semibold text-xl pt-3 pb-5">
+                    Chapter {chapter.substring(3)}
+                  </div>
+                  <div className="space-y-4">
+                    {groupedNotes[chapter].map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <input
+                          type="checkbox"
+                          id={item.id}
+                          // checked={checkedItems.includes(item.id)}
+                          // onChange={() => handleCheckboxChange(item.id)}
+                          className="checkbox checkbox-primary"
+                        />
+                        <label htmlFor={item.id} className="text-lg">
+                          {item.resourceName} ({item.id})
+                        </label>
+                      </div>
+                    ))}
+                  </div>
 
-                {/* Add a separator line after each chapter except the last one */}
-                <div className="border-t border-gray-300 mt-4"></div>
+                  {/* Add a separator line after each chapter except the last one */}
+                  <div className="border-t mt-4 mx-5"></div>
+                </div>
+              ))}
+            </div>
+            {/* Consider removing this section later, after consider if this is required, after implementing the update feature */}
+            <div className="flex justify-between items-center py-5">
+              <div className="btn btn-ghost">
+                <Check2All className="text-lg" />
+                Check All
               </div>
-            ))}
-          </div>
+              <div className="btn btn-success text-white">
+                <Floppy className="text-lg" />
+                Save
+              </div>
+              <div className="btn btn-ghost">
+                <XLg className="text-lg" />
+                Uncheck All
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>
