@@ -73,10 +73,9 @@ export async function updateNote(noteId, newResourceName, newUrl, newNote) {
   });
 }
 
-export async function createNote(resourceName, url, note) {
+export async function createNote(resourceName, note) {
   return await pb.collection("class_notes_notes").create({
     resourceName: resourceName,
-    url: url,
     note: note,
   });
 }

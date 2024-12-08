@@ -6,21 +6,19 @@ import { createNote } from "../../../../../lib/backend";
 
 const NotesEditor = () => {
   const [resourceName, setResourceName] = useState("");
-  const [url, setUrl] = useState("");
   const [note, setNote] = useState("");
 
   const clearFields = () => {
     setResourceName("");
-    setUrl("");
     setNote("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Form submitted:", { resourceName, url, note });
+      console.log("Form submitted:", { resourceName, note });
 
-      const success = await createNote(resourceName, url, note);
+      const success = await createNote(resourceName, note);
 
       if (success) {
         Swal.fire({
@@ -83,22 +81,6 @@ const NotesEditor = () => {
               value={resourceName}
               onChange={(e) => setResourceName(e.target.value)}
               placeholder="Enter the resource name"
-              className="input input-bordered w-full"
-              required
-            />
-          </div>
-
-          {/* URL */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Url</span>
-            </label>
-            <input
-              type="url"
-              name="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter the URL"
               className="input input-bordered w-full"
               required
             />
