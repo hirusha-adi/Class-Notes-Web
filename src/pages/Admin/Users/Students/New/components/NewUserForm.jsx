@@ -10,6 +10,7 @@ const NewUserForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     password: "",
     age: "",
     subject: "",
@@ -23,6 +24,7 @@ const NewUserForm = () => {
     setFormData({
       name: "",
       email: "",
+      phone: "",
       password: "",
       age: "",
       subject: "",
@@ -46,6 +48,7 @@ const NewUserForm = () => {
       const success = await createUser(
         formData.name,
         formData.email,
+        formData.phone,
         formData.password,
         formData.age,
         formData.subject,
@@ -103,7 +106,7 @@ const NewUserForm = () => {
         Create new student
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {/* Name */}
         <div className="form-control">
           <label className="label">
@@ -129,6 +132,21 @@ const NewUserForm = () => {
             name="email"
             className="input input-bordered"
             value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Phone */}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Phone Number</span>
+          </label>
+          <input
+            type="text"
+            name="phone"
+            className="input input-bordered"
+            value={formData.phone}
             onChange={handleChange}
             required
           />
@@ -203,7 +221,7 @@ const NewUserForm = () => {
         </div>
 
         {/* Verified */}
-        <div className="form-control col-span-2">
+        <div className="form-control pt-9">
           <label className="label cursor-pointer flex justify-between items-center">
             <span className="label-text">Verified</span>
             <input
