@@ -19,7 +19,7 @@ const MarkdownWithImageZoom = ({ content }) => {
 
         img.addEventListener("click", () => {
           MySwal.fire({
-            html: `<img src="${img.src}" alt="${img.alt}" style="width: 100%; height: auto; border-radius: 8px;" />`,
+            html: `<img src="${img.src}" alt="${img.alt}" style="w-full w-[60%]" />`,
             showCloseButton: true,
             showConfirmButton: false,
             customClass: {
@@ -39,7 +39,26 @@ const MarkdownWithImageZoom = ({ content }) => {
     };
   }, [content]);
 
-  return <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>;
+  return (
+    <Markdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        img: ({ node, ...props }) => (
+          <img
+            {...props}
+            style={{
+              width: "30%",
+              maxWidth: "30%",
+              display: "block",
+              margin: "0 auto",
+            }}
+          />
+        ),
+      }}
+    >
+      {content}
+    </Markdown>
+  );
 };
 
 export { MarkdownWithImageZoom };
