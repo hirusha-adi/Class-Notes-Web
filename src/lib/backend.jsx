@@ -226,6 +226,35 @@ export async function getNotesPaginated(
     .getList(pageNo, itemsPerPage, queryOptions);
 }
 
+export async function getAccessAllByUserResourceNames(
+  userId,
+  subjectName,
+  subjectType
+) {
+  return await pb.collection("class_notes_accesss").getFullList({
+    filter: `userId="${userId}" && resourceName~"${subjectName}_${subjectType}_"`,
+    fields: `resourceName`,
+  });
+}
+
+export async function createAccess(userId, resourceName) {
+  return await pb.collection("class_notes_accesss").create({
+    userId: userId,
+    resourceName: resourceName,
+  });
+}
+
+export async function deleteAccess(userId, resourceName) {
+  const x = await pb.collection("class_notes_accesss").getFullList({
+    filter: `userId="${userId}" && resourceName="${resourceName}"`,
+    fields: `id`,
+  });
+
+  for (const item of x) {
+    await pb.collection("class_notes_accesss").delete(item.id);
+  }
+}
+
 /* 
 Pocketbase Schema:
 ------------------

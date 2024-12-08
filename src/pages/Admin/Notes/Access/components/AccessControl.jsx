@@ -3,9 +3,10 @@ import {
   getUserByEmail,
   getUserByPhone,
   getNotesIdAndResourceNames,
+  getAccessAllByUserResourceNames,
 } from "../../../../../lib/backend";
 import { useFetchPocketbase } from "../../../../../hooks";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Search, XLg } from "react-bootstrap-icons";
 import {
   Book,
@@ -45,6 +46,17 @@ const AccessControl = () => {
     filterNotesType
   );
 
+  const {
+    data: notesAccess,
+    loading: notesAccessIsLoading,
+    error: notesAccessError,
+  } = useFetchPocketbase(
+    getAccessAllByUserResourceNames,
+    user?.id,
+    user?.subject,
+    filterNotesType
+  );
+
   const handleSubmitUser = async (e) => {
     e.preventDefault();
     setFilterUserValue(filterUserValueFix);
@@ -75,7 +87,8 @@ const AccessControl = () => {
   //   );
   // };
 
-  console.log(groupedNotes);
+  console.log(notes);
+  console.log(notesAccess);
   // console.log(subjects);
 
   return (
