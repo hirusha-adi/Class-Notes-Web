@@ -52,6 +52,9 @@ export async function getNoteById(noteId) {
 }
 
 export async function getNotesIdAndResourceNames(subjectName, subjectType) {
+  if (!subjectName || !subjectType) {
+    return null;
+  }
   return await pb.collection("class_notes_notes").getFullList({
     filter: `resourceName~"${subjectName}_${subjectType}_"`,
     fields: `id,resourceName`,
@@ -231,6 +234,9 @@ export async function getAccessAllByUserResourceNames(
   subjectName,
   subjectType
 ) {
+  if (!userId || !subjectName || !subjectType) {
+    return null;
+  }
   return await pb.collection("class_notes_accesss").getFullList({
     filter: `userId="${userId}" && resourceName~"${subjectName}_${subjectType}_"`,
     fields: `resourceName`,
