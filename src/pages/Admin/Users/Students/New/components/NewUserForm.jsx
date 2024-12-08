@@ -218,8 +218,19 @@ const NewUserForm = () => {
           />
         </div>
 
-        {/* Verified */}
-        <div className="form-control pt-9">
+        {/* 
+            Verified
+            ---------------------------------------------------
+            Setting this manually works on:  v0.22.27
+            But doesn't work on:  v0.23.4
+            REMINDER: Update this if this shit gets fixed in a new version
+              in their words, its for 'security purposes'
+            Temporary Fix: I'm using a custom pb_hook
+              This will set all newly created accounts to verified state,
+              By default.
+            ---------------------------------------------------
+        */}
+        {/* <div className="form-control pt-9">
           <label className="label cursor-pointer flex justify-between items-center">
             <span className="label-text">Verified</span>
             <input
@@ -230,7 +241,7 @@ const NewUserForm = () => {
               onChange={handleChange}
             />
           </label>
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-4 gap-2 mt-6">
