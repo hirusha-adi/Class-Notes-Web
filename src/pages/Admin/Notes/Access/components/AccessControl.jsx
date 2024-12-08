@@ -10,14 +10,22 @@ import {
 import { useFetchPocketbase } from "../../../../../hooks";
 import { useState, useCallback } from "react";
 import { Search, XLg } from "react-bootstrap-icons";
-import {
-  Book,
-  LightningCharge,
-  Check2All,
-  Floppy,
-} from "react-bootstrap-icons";
+import { Book, LightningCharge } from "react-bootstrap-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AccessControl = () => {
+  const toastConfig = {
+    position: "top-right",
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
+
   const [filterUserType, setFilterUserType] = useState("email");
   const [filterUserValueFix, setFilterUserValueFix] = useState("");
   const [filterUserValue, setFilterUserValue] = useState("");
@@ -70,6 +78,7 @@ const AccessControl = () => {
   };
 
   const clearUserForm = () => {
+    toast.info("Cleared everything!", toastConfig);
     setCurrentLogMsgBottom("Cleared form!");
     setFilterUserType("email");
     setFilterUserValue("");
@@ -99,15 +108,22 @@ const AccessControl = () => {
         if (noteAccessed) {
           // If already accessed, delete the access
           await deleteAccess(user?.id, note.resourceName);
-          setCurrentLogMsgBottom(`Access removed for: ${note.resourceName}`);
+          toast.success(
+            `Access removed for: ${note.resourceName}`,
+            toastConfig
+          );
         } else {
           // Otherwise, create the access
           await createAccess(user?.id, note.resourceName);
-          setCurrentLogMsgBottom(`Access granted for: ${note.resourceName}`);
+          toast.success(
+            `Access granted for: ${note.resourceName}`,
+            toastConfig
+          );
         }
         setNotesAccessReload((prev) => !prev);
       } catch (err) {
         console.error("Error toggling access:", err);
+        toast.error(`Access granted for: ${note.resourceName}`, toastConfig);
         setCurrentLogMsgBottom("Failed to update access. Please try again.");
       }
     },
@@ -257,6 +273,18 @@ const AccessControl = () => {
           </div>
         )}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
