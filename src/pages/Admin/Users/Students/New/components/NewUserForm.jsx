@@ -66,7 +66,7 @@ const NewUserForm = () => {
             popup: "custom-swal-popup",
           },
         }).then(() => {
-          // window.location.href = "/admin/users/students/all";
+          window.location.href = "/admin/users/students/all";
         });
       } else {
         Swal.fire({
