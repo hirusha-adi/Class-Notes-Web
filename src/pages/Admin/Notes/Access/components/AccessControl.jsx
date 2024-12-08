@@ -22,6 +22,7 @@ const AccessControl = () => {
   const [filterUserValueFix, setFilterUserValueFix] = useState("");
   const [filterUserValue, setFilterUserValue] = useState("");
   const [filterNotesType, setFilterNotesType] = useState("th");
+  const [notesAccessReload, setNotesAccessReload] = useState(false);
 
   const {
     data: user,
@@ -56,7 +57,8 @@ const AccessControl = () => {
     getAccessAllByUserResourceNames,
     user?.id,
     user?.subject,
-    filterNotesType
+    filterNotesType,
+    notesAccessReload
   );
 
   const handleSubmitUser = async (e) => {
@@ -94,6 +96,30 @@ const AccessControl = () => {
       (access) => access.resourceName === note.resourceName
     );
   };
+
+  const handleCheckboxChange = useCallback(
+    async (note) => {
+      const noteAccessed = isNoteAccessed(note);
+      console.log(noteAccessed);
+
+      try {
+        if (noteAccessed) {
+          // If already accessed, delete the access
+          await deleteAccess(user?.id, note.resourceName);
+          console.log(`Access removed for: ${note.resourceName}`);
+        } else {
+          // Otherwise, create the access
+          await createAccess(user?.id, note.resourceName);
+          console.log(`Access granted for: ${note.resourceName}`);
+        }
+        setNotesAccessReload((prev) => !prev);
+      } catch (err) {
+        console.error("Error toggling access:", err);
+        console.log("Failed to update access. Please try again.");
+      }
+    },
+    [user?.id, createAccess, deleteAccess, notesAccess, setNotesAccessReload]
+  );
 
   console.log(notes);
   console.log(notesAccess);
