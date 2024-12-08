@@ -4,6 +4,8 @@ import {
   getUserByPhone,
   getNotesIdAndResourceNames,
   getAccessAllByUserResourceNames,
+  createAccess,
+  deleteAccess,
 } from "../../../../../lib/backend";
 import { useFetchPocketbase } from "../../../../../hooks";
 import { useState, useCallback } from "react";
@@ -86,6 +88,12 @@ const AccessControl = () => {
   //       : [...prevCheckedItems, id]
   //   );
   // };
+
+  const isNoteAccessed = (note) => {
+    return notesAccess?.some(
+      (access) => access.resourceName === note.resourceName
+    );
+  };
 
   console.log(notes);
   console.log(notesAccess);
@@ -204,8 +212,8 @@ const AccessControl = () => {
                         <input
                           type="checkbox"
                           id={item.id}
-                          // checked={checkedItems.includes(item.id)}
-                          // onChange={() => handleCheckboxChange(item.id)}
+                          checked={isNoteAccessed(item)}
+                          onChange={() => handleCheckboxChange(item)}
                           className="checkbox checkbox-primary"
                         />
                         <label htmlFor={item.id} className="text-lg">
