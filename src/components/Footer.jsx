@@ -25,7 +25,8 @@ const Footer = () => {
         </nav> */}
         <aside>
           <p>
-            This site is still under development.
+            This site is still incomplete. New features will be added in the
+            near future. Current Version is v1.0
             <br />
             <br />
             Copyright © {new Date().getFullYear()} - All right reserved by
