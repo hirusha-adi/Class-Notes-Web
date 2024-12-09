@@ -4,11 +4,14 @@ FROM node:18
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if present)
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --production
+# Set NODE_ENV to development to install all dependencies
+ENV NODE_ENV=development
+
+# Install all dependencies
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
@@ -16,12 +19,14 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Use a local installation of `serve` instead of global
+# Switch NODE_ENV to production for runtime
+ENV NODE_ENV=production
+
+# Install `serve` for serving static files
 RUN npm install serve
 
-# Expose the port your app will run on
+# Expose the port
 EXPOSE 6001
 
-# Command to run `serve` from node_modules
+# Command to serve the built application
 CMD ["npx", "serve", "-s", "dist", "-l", "6001"]
-
