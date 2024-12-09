@@ -25,15 +25,13 @@ const Home = () => {
                 <h1 className="text-4xl font-bold mb-4">
                   Class Notes / Resources.
                 </h1>
-                <p className="text-lg mb-6 text-gray-500 mt-8">
+                <p className="text-lg mb-6 text-gray-500 mt-8 md:w-[76%] md:mx-auto">
                   You can use this site to access and browse the notes easily.
                   You will get access to the notes after the lesson has been
                   taught in class. For any other requests or assistance, please
-                  contact me at +94777662700.
-                  <br />
-                  Below are the steps of what should be done. Please follow
-                  them, and use the email address and the password that I sent
-                  you.
+                  contact me at +94777662700. Below are the steps of what should
+                  be done. Please follow them, and use the email address and the
+                  password that I sent you.
                 </p>
                 <Link to={"/login"} className="btn">
                   Click here to Login
