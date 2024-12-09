@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { isUserLoggedIn } from "../../lib/backend";
+import { isUserLoggedIn, user } from "../../lib/backend";
 import { Link } from "react-router-dom";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
 
@@ -15,9 +15,14 @@ const Home = () => {
           <div className="text-center mb-20">
             {isUserLoggedIn ? (
               <div>
-                <h1 className="text-4xl font-bold mb-4">Welcome Back!</h1>
-                <p className="text-lg mb-6 text-gray-500">
-                  Glad to see you again.
+                <div className="text-5xl font-bold">
+                  Welcome back {user?.record?.name.split(" ")[0]}!
+                </div>
+                <div className="mb-6 italic text-gray-400">
+                  ( You are logged in as {user?.record?.email} )
+                </div>
+                <p className="text-lg mb-6">
+                  Click on the resources below to start reading.
                 </p>
               </div>
             ) : (
