@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  react-vite-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:6001:6001"
+    container_name: web_class_notes
+    restart: unless-stopped
