@@ -53,7 +53,15 @@ const AllRoutes = () => {
         <Route
           path="/login"
           element={
-            isUserLoggedIn ? <Navigate to={"/admin/statistics"} /> : <Login />
+            isUserLoggedIn ? (
+              isTeacher ? (
+                <Navigate to={"/admin/statistics"} />
+              ) : (
+                <Navigate to={"/"} />
+              )
+            ) : (
+              <Login />
+            )
           }
         />
         {/* ------------------------- */}
