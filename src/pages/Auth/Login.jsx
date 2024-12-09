@@ -78,7 +78,7 @@ const Login = () => {
       <div className="hero-content flex-col text-center mb-[20vh] w-full">
         <h1 className="text-4xl font-bold mb-4">Class Notes</h1>
         <p className="text-lg mb-8 text-gray-500">
-          Please enter your credentials to login and access the notes.
+          Please enter your credentials to login and access the resources.
         </p>
         <form onSubmit={handleLogin} className="w-full max-w-md">
           <div className="form-control mb-4">
