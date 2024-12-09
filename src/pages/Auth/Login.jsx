@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { ArrowRight } from "react-bootstrap-icons";
 
 import { login } from "../../lib/backend";
 
@@ -100,14 +101,18 @@ const Login = () => {
             />
           </div>
           <button
-            className={`btn w-full ${isLoading ? "btn-disabled" : ""}`}
+            className={`btn btn-neutral w-full ${
+              isLoading ? "btn-disabled" : ""
+            }`}
             type="submit"
             disabled={isLoading}
           >
             {isLoading ? (
               <span className="loading loading-dots loading-lg"></span>
             ) : (
-              "Login"
+              <>
+                Login <ArrowRight className="text-lg" />
+              </>
             )}
           </button>
         </form>
