@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { ArrowRight } from "react-bootstrap-icons";
+import { ArrowRight, Eye, EyeSlash } from "react-bootstrap-icons";
 
 import { login } from "../../lib/backend";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     document.title = `Login`;
@@ -91,14 +92,27 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="form-control mb-6">
+          <div className="mb-6 flex">
             <input
-              type="password"
+              type={showPassword ? "password" : "text"}
               name="password"
               placeholder="Password"
               className="input input-bordered w-full"
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div className="btn ml-4">
+              {showPassword ? (
+                <Eye
+                  onClick={() => setShowPassword(false)}
+                  className="text-lg"
+                />
+              ) : (
+                <EyeSlash
+                  onClick={() => setShowPassword(true)}
+                  className="text-lg"
+                />
+              )}
+            </div>
           </div>
           <button
             className={`btn btn-neutral w-full ${
