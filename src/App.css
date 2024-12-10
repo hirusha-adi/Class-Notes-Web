@@ -22,9 +22,9 @@
 
 /* ### For Images in pags/Notes/ ### */
 .custom-swal-popup-image {
-  @apply rounded-2xl h-[90vh] w-[90%] !important;
+  @apply rounded-2xl h-[75vh] md:h-[90vh] w-[90%] !important;
 }
 
 .custom-swal-popup-image img {
-  @apply h-[85vh] text-center items-center !important;
+  @apply h-auto md:h-[85vh] text-center items-center !important;
 }
