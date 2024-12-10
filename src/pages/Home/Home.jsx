@@ -11,13 +11,21 @@ const Home = () => {
 
   return (
     <>
-    <div
+    {/* 
+      background gradient magic
+      -------------------------
+      This block of css stolen from a template provided by tailwind
+      break things up in this page
+      maybe its because its not put inside a .relative div
+      idk shit - maybe ill fix this later  
+    */}
+    {/* <div
         className="absolute inset-0 blur-3xl h-full"
         style={{
           background:
             "linear-gradient(145deg, rgba(255, 0, 0, 0) 20.79%, rgba(255, 69, 58, 0.26) 40.92%, rgba(255, 0, 0, 0) 70.35%)",
         }}
-      ></div>
+      ></div> */}
     <div className="hero min-h-screen pb-[20vh]">
       <div className="hero-content">
         <div>
