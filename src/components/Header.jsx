@@ -1,7 +1,6 @@
 import { List, Book, LightningCharge } from "react-bootstrap-icons";
 import { isTeacher, isUserLoggedIn, logout } from "../lib/backend";
 import { NavLink, Link } from "react-router-dom";
-import SiteLogo from "../assets/logo.svg"
 
 const Header = () => {
   return (
@@ -56,7 +55,7 @@ const Header = () => {
         <div className="navbar-center">
           <Link to={"/"} className="btn btn-ghost text-xl">
           <div className="w-8 pt-2">
-              <img src={SiteLogo} alt="Logo" />
+              <img src="/logo.svg" alt="Logo" />
             </div>
             Class Notes
           </Link>

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { isUserLoggedIn, user } from "../../lib/backend";
 import { Link } from "react-router-dom";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
-import SiteLogo from "../../assets/logo.svg"
 
 const Home = () => {
   useEffect(() => {
@@ -31,7 +30,7 @@ const Home = () => {
         <div>
           <div className="text-center mb-20">
             <div className="flex justify-center items-center w-52 mx-auto mt-12 mb-5">
-              <img src={SiteLogo} alt="Logo" />
+              <img src="/logo.svg" alt="Logo" />
             </div>
             {isUserLoggedIn ? (
               <div>
