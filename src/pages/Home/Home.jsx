@@ -30,7 +30,7 @@ const Home = () => {
       <div className="hero-content">
         <div>
           <div className="text-center mb-20">
-            <div className="flex justify-center items-center w-52 mx-auto">
+            <div className="flex justify-center items-center w-52 mx-auto mt-12 mb-5">
               <img src={SiteLogo} alt="Logo" />
             </div>
             {isUserLoggedIn ? (
