@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 import {
   user,
-  // getNoteByResourceName,
   getNoteByResourceNameWithAuth,
 } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";

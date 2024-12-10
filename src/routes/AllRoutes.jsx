@@ -1,26 +1,41 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import { isUserLoggedIn, isTeacher } from "../lib/backend";
 import {
   // Main
+  // -------------------------
   Home,
   Notes,
+  // -------------------------
+
 
   // Auth
+  // -------------------------
   Login,
+  // -------------------------
+
 
   // Admin
+  // -------------------------
+  // (basic)
   AdminStatistics,
+  // (users)
   AdminUsersStudentsAll,
   AdminUsersStudentsNew,
   AdminUsersTeachers,
+  // (notes)
   AdminNotesAll,
   AdminNotesNew,
   AdminNotesAccess,
+  // -------------------------
+
 
   // Others
+  // -------------------------
   PageNotFound,
+  // -------------------------
 } from "../pages";
+import { isUserLoggedIn, isTeacher } from "../lib/backend";
+
 
 const AllRoutes = () => {
   return (

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { isUserLoggedIn, user } from "../../lib/backend";
 import { Link } from "react-router-dom";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
+
+import { isUserLoggedIn, user } from "../../lib/backend";
 
 const Home = () => {
   useEffect(() => {

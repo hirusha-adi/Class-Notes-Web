@@ -1,6 +1,7 @@
-import { List, Book, LightningCharge } from "react-bootstrap-icons";
-import { isTeacher, isUserLoggedIn, logout } from "../lib/backend";
 import { NavLink, Link } from "react-router-dom";
+import { List, Book, LightningCharge } from "react-bootstrap-icons";
+
+import { isTeacher, isUserLoggedIn, logout } from "../lib/backend";
 
 const Header = () => {
   return (
@@ -54,7 +55,7 @@ const Header = () => {
         </div>
         <div className="navbar-center">
           <Link to={"/"} className="btn btn-ghost text-xl">
-          <div className="w-8 pt-2">
+            <div className="w-8 pt-2">
               <img src="/logo.svg" alt="Logo" />
             </div>
             Class Notes
