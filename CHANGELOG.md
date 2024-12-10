@@ -1,6 +1,7 @@
 ### v1.0.2
 
 - add a show/hide button to the password field
+- fix sizing, size & scaling of image popup in notes viewing for user
 
 ### v1.0.1
 
