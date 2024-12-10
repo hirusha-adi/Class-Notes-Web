@@ -63,7 +63,7 @@ const Home = () => {
               </div>
             )}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-24">
             <div className="col-span-1 ">
               <div className="text-2xl font-extrabold">Theory notes</div>
               <div className="mt-6">
