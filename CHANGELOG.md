@@ -1,6 +1,9 @@
 ### v1.0.2
 
 - add a show/hide button to the password field
+- fix sizing, size & scaling of image popup in notes viewing for user
+- fix height for notes component's note browser part (ul)
+- sort and refactor imports
 
 ### v1.0.1
 

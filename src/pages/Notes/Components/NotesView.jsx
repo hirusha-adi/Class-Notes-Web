@@ -1,11 +1,8 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import {
   user,
-  // getNoteByResourceName,
   getNoteByResourceNameWithAuth,
 } from "../../../lib/backend";
 import { RecursiveMenu } from "./RecursiveMenu";
@@ -59,10 +56,10 @@ const NotesView = ({ postFix }) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row mt-2">
+      <div className="flex flex-col md:flex-row mt-2 mb-20 md:mb-7">
         {/* Left (Desktop) / Top (Mobile) */}
         <div className="px-2 mx-2 mb-2 w-full md:w-auto">
-          <div className="bg-base-200 rounded-box w-full md:w-64 overflow-y-auto overflow-x-hidden h-[82vh] max-h-[82vh] min-h-[82vh]">
+          <div className="bg-base-200 rounded-box w-full md:w-64 overflow-y-auto overflow-x-hidden md:h-[82vh] md:max-h-[82vh] md:min-h-[82vh] h-[35vh] max-h-[35vh] min-h-[35vh]">
             <ul className="menu">
               {isLoadingSidebar ? (
                 <>

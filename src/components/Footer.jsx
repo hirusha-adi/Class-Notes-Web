@@ -26,7 +26,7 @@ const Footer = () => {
         <aside>
           <p>
             This site is still incomplete. New features will be added in the
-            near future. Current Version is v1.0.1
+            near future. Current Version is v1.0.2
             <br />
             <br />
             Copyright © {new Date().getFullYear()} - All right reserved by
