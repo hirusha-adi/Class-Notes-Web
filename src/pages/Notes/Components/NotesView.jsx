@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import {
   user,
