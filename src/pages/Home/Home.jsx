@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { isUserLoggedIn, user } from "../../lib/backend";
 import { Link } from "react-router-dom";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
+import SiteLogo from "../../assets/logo.svg"
 
 const Home = () => {
   useEffect(() => {
@@ -9,10 +10,21 @@ const Home = () => {
   });
 
   return (
+    <>
+    <div
+        className="absolute inset-0 blur-3xl h-full"
+        style={{
+          background:
+            "linear-gradient(145deg, rgba(255, 0, 0, 0) 20.79%, rgba(255, 69, 58, 0.26) 40.92%, rgba(255, 0, 0, 0) 70.35%)",
+        }}
+      ></div>
     <div className="hero min-h-screen pb-[20vh]">
       <div className="hero-content">
         <div>
           <div className="text-center mb-20">
+            <div className="flex justify-center items-center w-52 mx-auto">
+              <img src={SiteLogo} alt="Logo" />
+            </div>
             {isUserLoggedIn ? (
               <div>
                 <div className="text-5xl font-bold">
@@ -87,6 +99,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
