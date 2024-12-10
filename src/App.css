@@ -3,7 +3,11 @@
   @apply bg-gray-300;
 }
 
-/* for Sweet Alert 2 */
+/* 
+  for Sweet Alert 2
+  -----------------
+*/
+/* ### General ### */
 .custom-swal-popup {
   @apply rounded-2xl !important;
 }
@@ -16,6 +20,7 @@
   @apply text-white btn btn-error !important;
 }
 
+/* ### For Images in pags/Notes/ ### */
 .custom-swal-popup-image {
   @apply rounded-2xl h-[90vh] w-[90%] !important;
 }
